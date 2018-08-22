@@ -19,4 +19,14 @@ angular.module('treinadorPokemon')
             
             vm.treinadores = novosTreinadores;
         }
+
+        vm.editarTreinador = function(treinador){
+            vm.treinadorEditavel = treinador;
+            vm.flagEditar = true;
+        }
+
+        vm.concluirEdicao = function(treinador){
+            vm.treinadorEditavel = null;
+            vm.flagEditar = false;
+        }
     });

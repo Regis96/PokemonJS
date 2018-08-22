@@ -14,7 +14,7 @@
 
 <body ng-app="treinadorPokemon">
     <div id="main" ng-controller="treinadorController as vm">
-        <form  name="vm.formularioTreinador">
+        <form name="vm.formularioTreinador">
             <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.nome" ng-required="true"><br>
             <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinador.cpf" ng-required="true"><br>
 
@@ -37,10 +37,20 @@
                     </td>
                     <td>
                         <span class="btn btn-danger" ng-click="vm.apagarTreinador(treinador)">X</span>
+                        <span class="btn btn-primary" ng-click="vm.editarTreinador(treinador)">Editar</span>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+
+        <form name="formularioEditarTreinador" ng-if="vm.flagEditar">
+            <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinadorEditavel.nome" ng-required="true"><br>
+            <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinadorEditavel.cpf" ng-required="true"><br>
+
+            <button class="btn" ng-click="vm.concluirEdicao()" ng-disabled="vm.formularioEditarTreinador.$invalid">Concluir</button>
+
+        </form>
     </div>
 </body>
 
