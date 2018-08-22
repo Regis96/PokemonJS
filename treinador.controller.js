@@ -3,8 +3,14 @@ angular.module('treinadorPokemon')
         var vm = this;
 
         vm.treinadores = [
-            {nome : 'Régis', cpf : '12345678900'}
+            {nome : 'Régis', cpf : '12345678900', pokemons : []}
         ];
+
+        vm.pokemons = [
+            {nome : 'Charmander'},
+            {nome : 'Squirtle'},
+            {nome : 'Bulbassauro'}
+        ]
 
         vm.cadastrarTreinador = function(treinador){
             vm.treinadores.push(treinador);
@@ -28,5 +34,21 @@ angular.module('treinadorPokemon')
         vm.concluirEdicao = function(treinador){
             vm.treinadorEditavel = null;
             vm.flagEditar = false;
+        }
+
+        vm.abrirFormularioDePokemons = function(treinador){
+            vm.treinadorParaAdicionarPokemon = treinador;
+            vm.flagCadastrarPokemonNoTreinador = true;
+        }
+
+        vm.salvarPokemonsNoTreinador = function(pokemon,treinador){
+            treinador.pokemons.push(pokemon);
+            pokemon = null;
+        }
+
+        vm.concluirSalvarPokemonsNoTreinador = function(){
+            vm.flagCadastrarPokemonNoTreinador = false;
+            vm.treinadorParaAdicionarPokemon = null;
+            vm.pokemon = null;
         }
     });

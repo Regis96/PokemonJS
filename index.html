@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <script src="./node_modules/angular/angular.js"></script>
     <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
     <link rel="stylesheet" type="text/css" href="./index.css">
     <script src="./app.js"></script>
@@ -33,11 +32,16 @@
             <tbody>
                 <tr ng-repeat="treinador in vm.treinadores">
                     <td valign="bottom" ng-repeat="(key,value) in treinador">
-                        {{value}}
+                        <span ng-if="value.length && key !== 'pokemons'">{{value}}</span>
+
+                        <span ng-if="value.length && key === 'pokemons'">
+                            <span ng-repeat="pokemon in value track by $index">{{pokemon.nome}} </span>
+                        </span>
                     </td>
                     <td>
                         <span class="btn btn-danger" ng-click="vm.apagarTreinador(treinador)">X</span>
                         <span class="btn btn-primary" ng-click="vm.editarTreinador(treinador)">Editar</span>
+                        <span class="btn btn-primary" ng-click="vm.abrirFormularioDePokemons(treinador)">+</span>
                     </td>
                 </tr>
             </tbody>
@@ -49,7 +53,16 @@
             <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinadorEditavel.cpf" ng-required="true"><br>
 
             <button class="btn" ng-click="vm.concluirEdicao()" ng-disabled="vm.formularioEditarTreinador.$invalid">Concluir</button>
+        </form>
 
+        <form name="formularioCadastrarPokemonNoTreinador" ng-if="vm.flagCadastrarPokemonNoTreinador">
+            <select class="form-control" ng-model="vm.pokemon" ng-options="pokemonTemp.nome for pokemonTemp in vm.pokemons"
+                ng-required="true">
+                <option value="">Selecione um Pokémon para {{vm.treinadorParaAdicionarPokemon.nome}} </option>
+            </select><br>
+
+            <button class="btn" ng-click="vm.salvarPokemonsNoTreinador(vm.pokemon,vm.treinadorParaAdicionarPokemon)" ng-disabled="!vm.pokemon">Adicionar Pokemon</button>
+            <button class="btn" ng-click="vm.concluirSalvarPokemonsNoTreinador()">Concluir</button>
         </form>
     </div>
 </body>
