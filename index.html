@@ -14,11 +14,11 @@
 
 <body ng-app="treinadorPokemon">
     <div id="main" ng-controller="treinadorController as vm">
-        <form>
-            <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.nome"><br>
-            <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinador.cpf">
-            <br>
-            <button class="btn" ng-click="vm.cadastrarTreinador(vm.treinador)">Cadastrar</button>
+        <form  name="vm.formularioTreinador">
+            <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.nome" ng-required="true"><br>
+            <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinador.cpf" ng-required="true"><br>
+
+            <button class="btn" ng-click="vm.cadastrarTreinador(vm.treinador)" ng-disabled="vm.formularioTreinador.$invalid">Cadastrar</button>
         </form>
 
         <table class="table table-striped" ng-if="vm.treinadores.length">
@@ -27,12 +27,16 @@
                     <td class="capitalize" ng-repeat="(key,value) in vm.treinadores[0]">
                         {{key}}
                     </td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="treinador in vm.treinadores">
-                    <td ng-repeat="(key,value) in treinador">
+                    <td valign="bottom" ng-repeat="(key,value) in treinador">
                         {{value}}
+                    </td>
+                    <td>
+                        <span class="btn btn-danger" ng-click="vm.apagarTreinador(treinador)">X</span>
                     </td>
                 </tr>
             </tbody>
