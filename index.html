@@ -13,13 +13,8 @@
 
 <body ng-app="treinadorPokemon">
     <div id="main" ng-controller="treinadorController as vm">
-        <form name="vm.formularioTreinador">
-            <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.nome" ng-required="true"><br>
-            <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinador.cpf" ng-required="true"><br>
-
-            <button class="btn" ng-click="vm.cadastrarTreinador(vm.treinador)" ng-disabled="vm.formularioTreinador.$invalid">Cadastrar</button>
-        </form>
-
+        <button class="btn btn-primary" ng-click="vm.mostrarTelaDeCadastro()">Cadastrar</button>
+        <p></p>
         <table class="table table-striped" ng-if="vm.treinadores.length">
             <thead>
                 <tr>
@@ -47,6 +42,16 @@
             </tbody>
         </table>
 
+        <div class="alert alert-warning" ng-if="!vm.treinadores.length">
+            Não há treinadores cadastrados.
+        </div>
+
+        <form name="vm.formularioTreinador" ng-if="vm.flagFormularioCadastrar">
+            <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.nome" ng-required="true"><br>
+            <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinador.cpf" ng-required="true"><br>
+
+            <button class="btn" ng-click="vm.cadastrarTreinador(vm.treinador)" ng-disabled="vm.formularioTreinador.$invalid">Cadastrar</button>
+        </form>
 
         <form name="formularioEditarTreinador" ng-if="vm.flagEditar">
             <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinadorEditavel.nome" ng-required="true"><br>
@@ -56,12 +61,12 @@
         </form>
 
         <form name="formularioCadastrarPokemonNoTreinador" ng-if="vm.flagCadastrarPokemonNoTreinador">
-            <select class="form-control" ng-model="vm.pokemon" ng-options="pokemonTemp.nome for pokemonTemp in vm.pokemons"
-                ng-required="true">
+            <select class="form-control" ng-model="vm.pokemon" ng-options="pokemonTemp.nome for pokemonTemp in vm.pokemons" ng-required="true">
                 <option value="">Selecione um Pokémon para {{vm.treinadorParaAdicionarPokemon.nome}} </option>
             </select><br>
 
-            <button class="btn" ng-click="vm.salvarPokemonsNoTreinador(vm.pokemon,vm.treinadorParaAdicionarPokemon)" ng-disabled="!vm.pokemon">Adicionar Pokemon</button>
+            <button class="btn" ng-click="vm.salvarPokemonsNoTreinador(vm.pokemon,vm.treinadorParaAdicionarPokemon)" ng-disabled="!vm.pokemon">Adicionar
+                Pokemon</button>
             <button class="btn" ng-click="vm.concluirSalvarPokemonsNoTreinador()">Concluir</button>
         </form>
     </div>

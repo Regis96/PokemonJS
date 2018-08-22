@@ -7,14 +7,16 @@ angular.module('treinadorPokemon')
         ];
 
         vm.pokemons = [
-            {nome : 'Charmander'},
-            {nome : 'Squirtle'},
-            {nome : 'Bulbassauro'}
+            {nome : 'Charmander', id: 0},
+            {nome : 'Squirtle', id: 1},
+            {nome : 'Bulbassauro', id: 2}
         ]
 
         vm.cadastrarTreinador = function(treinador){
+            treinador['pokemons'] = [];
             vm.treinadores.push(treinador);
             delete vm.treinador;
+            vm.flagFormularioCadastrar = false;
         }
 
         vm.apagarTreinador = function(treinador){
@@ -42,6 +44,12 @@ angular.module('treinadorPokemon')
         }
 
         vm.salvarPokemonsNoTreinador = function(pokemon,treinador){
+            for(var pokemonTemp of treinador.pokemons){
+                if(pokemonTemp.id === pokemon.id){
+                    //mostrar mensagem de erro
+                    return;
+                }
+            }
             treinador.pokemons.push(pokemon);
             pokemon = null;
         }
@@ -50,5 +58,10 @@ angular.module('treinadorPokemon')
             vm.flagCadastrarPokemonNoTreinador = false;
             vm.treinadorParaAdicionarPokemon = null;
             vm.pokemon = null;
+        }
+
+        vm.mostrarTelaDeCadastro = function(){
+            console.log('x')
+            vm.flagFormularioCadastrar = true;
         }
     });
