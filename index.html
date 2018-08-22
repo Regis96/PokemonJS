@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="./node_modules/angular/angular.js"></script>
+        <link href="./node_modules/bootstrap/dist/css/bootstrap.css">
+        <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+        <script src="./app.js"></script>
+        <script src="./treinador.controller.js"></script>
+        <link href="./index.css">
+        <title>Pokemon</title>
+    </head>
+    <body ng-app="treinadorPokemon">
+        <div ng-controller="treinadorController as vm">
+            <form>
+                <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.nome"><br>
+                <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinador.cpf">
+                <br>
+                <button class="btn" ng-click="vm.cadastrarTreinador(vm.treinador)">Cadastrar</button>
+            </form>
+            
+
+        </div>
+    </body>
+</html>
