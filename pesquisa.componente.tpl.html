@@ -1,0 +1,35 @@
+<form name="formularioPesquisarPokemon">
+    <!-- <input type="text" ng-change="pesquisarPokemonNome(nomePesquisado, pokemons)" class="form-control" ng-model="nomePesquisado" placeholder="Pesquisar por nome">
+                         -->
+    <input type="text" ng-change="pesquisarPokemon(termoPesquisado, pokemonsLocais)" class="form-control" ng-model="termoPesquisado"
+        placeholder="Pesquisar">
+
+    <div>
+        <table class="table table-hover table-scroll">
+            <thead >
+                <tr>
+                    <td class="capitalize texto-centralizado" ng-repeat="(key,value) in listaPokemonsPesquisado[0]"  ng-if="key !== 'id'">
+                        <span ng-click="key !== 'icone' ? ordernarPorAtributo(key, ordenacao) : null">{{key}}</span>
+                        <!-- <span ng-class="ordenacao ? 'arrow-top' : 'arrow-bottom'"></span> -->
+                        <!-- <span class="oi oi-arrow-bottom"></span> -->
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pokemon in listaPokemonsPesquisado | orderBy: chaveOrdenacao : ordenacao" ng-click="adicionarNaListaAlvo(pokemon,listaAlvo)" style="cursor: pointer;">
+                    <td class=" texto-centralizado" ng-repeat="(key,value) in pokemon" ng-if="key !== 'id'" > 
+                        <span class="capitalize" ng-if="key !== 'id' && key !== 'icone' && key !== 'tipos'">
+                            {{value}}
+                        </span>
+                        <span ng-if="key === 'icone'">
+                            <img ng-src="{{value}}">
+                        </span>
+                        <span class="capitalize" ng-repeat="tipos in value track by $index" ng-if="key === 'tipos'">
+                            {{tipos}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
