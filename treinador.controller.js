@@ -4,9 +4,7 @@ angular.module('treinadorPokemon')
         
         
 
-        vm.treinadores = [
-            { nome: 'Régis', cpf: '12345678900', idade: 21, pokemons: [] }
-        ];
+
 
         vm.pokemons = pokemonService.getPokemons();
         vm.listaPokemonTemporaria = [];
@@ -20,20 +18,7 @@ angular.module('treinadorPokemon')
             vm.pokemon = null;
         }
 
-        vm.apagarTreinador = function (treinador) {
-            var novosTreinadores;
-            novosTreinadores = vm.treinadores.filter(treinadorCorrente => {
-                return treinadorCorrente.nome !== treinador.nome;
-            });
 
-            vm.treinadores = novosTreinadores;
-        }
-
-        vm.editarTreinador = function (treinador) {
-            vm.treinadorEditavel = treinador;
-            vm.treinadorParaAdicionarPokemon = treinador;
-            vm.flagEditar = true;
-        }
 
         vm.concluirEdicao = function (treinador) {
             vm.treinadorEditavel = null;

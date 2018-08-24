@@ -1,0 +1,86 @@
+<table class="table table-striped" ng-if="vm.treinadores.length && !vm.flagEditar && !vm.flagFormularioCadastrar && !vm.flagPesquisarPokemon">
+    <thead>
+        <tr>
+            <td class="capitalize" ng-repeat="(key,value) in vm.treinadores[0]">
+                {{key}}
+            </td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="treinador in vm.treinadores">
+            <td valign="bottom" ng-repeat="(key,value) in treinador">
+                <span ng-if="(value.length || value > 0) && key !== 'pokemons'">{{value}}</span>
+
+                <span ng-if="value.length && key === 'pokemons'" data-toggle="modal" data-target="#informacoesPokemons">
+                    <span class="btn btn-link">{{treinador.pokemons.length}}</span>
+
+                    <div class="modal fade" id="informacoesPokemons" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Equipe do {{treinador.nome}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-hover table-scroll">
+                                        <thead>
+                                            <tr>
+                                                <td class="capitalize texto-centralizado" ng-repeat="(key,value) in treinador.pokemons[0]" ng-if="key !== 'id'">
+                                                    <span>{{key}}</span>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="pokemon in treinador.pokemons">
+                                                <td class=" texto-centralizado" ng-repeat="(key,value) in pokemon" ng-if="key !== 'id'">
+                                                    <span class="capitalize" ng-if="key !== 'id' && key !== 'icone' && key !== 'tipos'">
+                                                        {{value}}
+                                                    </span>
+                                                    <span ng-if="key === 'icone'">
+                                                        <img ng-src="{{value}}">
+                                                    </span>
+                                                    <span class="capitalize" ng-repeat="tipos in value track by $index" ng-if="key === 'tipos'">
+                                                        {{tipos}}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+            </td>
+            <td>
+                <span class="btn btn-danger" ng-click="vm.apagarTreinador(treinador)">X</span>
+                <span class="btn btn-primary" ng-click="vm.editarTreinador(treinador)">Editar</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert alert-warning" ng-if="!vm.treinadores.length">
+    Não há treinadores cadastrados.
+</div>
+
+<form name="formularioEditarTreinador" ng-if="vm.flagEditar">
+    <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinadorEditavel.nome" ng-required="true"><br>
+    <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinadorEditavel.cpf" ng-required="true"><br>
+    <input type="number" class="form-control" placeholder="Idade" min="10" max="200" ng-model="vm.treinadorEditavel.idade" ng-required="true"><br>
+
+    <pesquisa-pokemon lista-alvo="vm.treinadorParaAdicionarPokemon.pokemons"></pesquisa-pokemon>
+    <ul class="lista-com-overflow">
+        <li ng-if="vm.treinadorParaAdicionarPokemon.pokemons.length" ng-repeat="pokemon in vm.treinadorParaAdicionarPokemon.pokemons">
+            {{pokemon.nome}} - Level:<input type="number" ng-model="pokemon.level" min="1" max="99">
+            <span class="btn btn-danger" ng-click="vm.excluirPokemonDaListaTemporaria($index, vm.treinadorParaAdicionarPokemon.pokemons)">X</span>
+        </li>
+    </ul>
+    <button class="btn" ng-click="vm.concluirEdicao()" ng-disabled="vm.formularioEditarTreinador.$invalid">Concluir</button>
+
+</form>

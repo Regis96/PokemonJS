@@ -3,7 +3,7 @@ angular.module('treinadorPokemon')
     .directive('pesquisaPokemon', function (pokemonService) {
         return {
             restrict: '',
-            templateUrl: 'pesquisa.componente.tpl.html',
+            templateUrl: 'pesquisa.directive.tpl.html',
             scope: {
                 listaAlvo: '=',
             },

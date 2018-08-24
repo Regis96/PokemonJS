@@ -2,8 +2,10 @@
 
 <head>
     <meta charset="UTF-8">
+    <base href="/">
     <script src="./node_modules/angular/angular.js"></script>
     <script src="./node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="./node_modules/angular-route/angular-route.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -16,139 +18,33 @@
 
     <link rel="stylesheet" type="text/css" href="./index.css">
     <script src="./app.js"></script>
-    <script src="./pokemons.service.js"></script>
-    <script src="./pesquisar.component.js"></script>
-    <script src="./user.controller.js"></script>
-    <script src="./treinador.controller.js"></script>
-    <title>Pokemon</title>
+    <script src="./app.routing.js"></script>
+    <script src="./spas/service/pokemons.service.js"></script>
+    <script src="./spas/service/user.service.js"></script>
+    <script src="./spas/login/login.controller.js"></script>
+    <script src="./spas/cadastro/cadastro.controller.tpl.html"></script>
+    <script src="./spas/pokemon/pokemon.controller.js"></script>
+    <script src="./spas/treinador/treinador.controller.js"></script>
+    <title>Pokémon</title>
 </head>
 
 <body ng-app="treinadorPokemon">
-    <div id="main" ng-controller="usuarioController as uservm">
-        <div ng-if="!uservm.usuario.logado">
-            <form>
-                <input type="text" class="form-control" placeholder="Usuario" ng-model="uservm.usuario.login">
-                <input type="password" class="form-control" placeholder="Senha" ng-model="uservm.usuario.senha">
-                <button class="btn btn-success" ng-click="uservm.tentarLogar(uservm.usuario)">Logar</button>
-            </form>
-        </div>
-        <p></p>
+    <div id="main" ng-view>
+
+        <!-- <p></p>
         <div ng-if="uservm.usuario.logado" ng-controller="treinadorController as vm">
             <div class="row">
                 <button class="btn btn-primary" ng-click="vm.mostrarTelaDeCadastro()">Cadastrar</button>
-                <!-- <button class="btn btn-secondary" ng-click="vm.mostrarTelaDePesquisa()">Pesquisar</button> -->
+                 <button class="btn btn-secondary" ng-click="vm.mostrarTelaDePesquisa()">Pesquisar</button> 
                 <button class="btn btn-danger" ng-click="uservm.deslogar()">Sair</button>
             </div>
-            <table class="table table-striped" ng-if="vm.treinadores.length && !vm.flagEditar && !vm.flagFormularioCadastrar && !vm.flagPesquisarPokemon">
-                <thead>
-                    <tr>
-                        <td class="capitalize" ng-repeat="(key,value) in vm.treinadores[0]">
-                            {{key}}
-                        </td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="treinador in vm.treinadores">
-                        <td valign="bottom" ng-repeat="(key,value) in treinador">
-                            <span ng-if="(value.length || value > 0) && key !== 'pokemons'">{{value}}</span>
-
-                            <span ng-if="value.length && key === 'pokemons'" data-toggle="modal" data-target="#informacoesPokemons">
-                                <span class="btn btn-link">{{treinador.pokemons.length}}</span>
-
-                                <div class="modal fade" id="informacoesPokemons" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Equipe do {{treinador.nome}}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <table class="table table-hover table-scroll">
-                                                    <thead>
-                                                        <tr>
-                                                            <td class="capitalize texto-centralizado" ng-repeat="(key,value) in treinador.pokemons[0]" ng-if="key !== 'id'">
-                                                                <span>{{key}}</span>
-                                                            </td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr ng-repeat="pokemon in treinador.pokemons">
-                                                            <td class=" texto-centralizado" ng-repeat="(key,value) in pokemon" ng-if="key !== 'id'">
-                                                                <span class="capitalize" ng-if="key !== 'id' && key !== 'icone' && key !== 'tipos'">
-                                                                    {{value}}
-                                                                </span>
-                                                                <span ng-if="key === 'icone'">
-                                                                    <img ng-src="{{value}}">
-                                                                </span>
-                                                                <span class="capitalize" ng-repeat="tipos in value track by $index" ng-if="key === 'tipos'">
-                                                                    {{tipos}}
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="btn btn-danger" ng-click="vm.apagarTreinador(treinador)">X</span>
-                            <span class="btn btn-primary" ng-click="vm.editarTreinador(treinador)">Editar</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="alert alert-warning" ng-if="!vm.treinadores.length">
-                Não há treinadores cadastrados.
-            </div>
-
-            <form name="vm.formularioTreinador" ng-if="vm.flagFormularioCadastrar">
-                <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.nome" ng-required="true"><br>
-                <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinador.cpf" ng-required="true"><br>
-                <input type="number" class="form-control" placeholder="Idade" min="10" max="200" ng-model="vm.treinador.idade" ng-required="true"><br>
-
-
-                <pesquisa-pokemon lista-alvo="vm.listaPokemonTemporaria"></pesquisa-pokemon>
-                <ul class="lista-com-overflow">
-                    <li ng-if="vm.listaPokemonTemporaria.length" ng-repeat="pokemon in vm.listaPokemonTemporaria">
-                        {{pokemon.nome}} - Level:<input type="number" ng-model="pokemon.level" min="1" max="99">
-                        <span class="btn btn-danger" ng-click="vm.excluirPokemonDaListaTemporaria($index, vm.listaPokemonTemporaria)">X</span>
-                    </li>
-                </ul>
-
-                <button class="btn" ng-click="vm.cadastrarTreinador(vm.treinador)" ng-disabled="vm.formularioTreinador.$invalid">Cadastrar</button>
-            </form>
-
-            <form name="formularioEditarTreinador" ng-if="vm.flagEditar">
-                <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinadorEditavel.nome" ng-required="true"><br>
-                <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinadorEditavel.cpf" ng-required="true"><br>
-                <input type="number" class="form-control" placeholder="Idade" min="10" max="200" ng-model="vm.treinadorEditavel.idade" ng-required="true"><br>
-
-                <pesquisa-pokemon lista-alvo="vm.treinadorParaAdicionarPokemon.pokemons"></pesquisa-pokemon>
-                <ul class="lista-com-overflow">
-                    <li ng-if="vm.treinadorParaAdicionarPokemon.pokemons.length" ng-repeat="pokemon in vm.treinadorParaAdicionarPokemon.pokemons">
-                        {{pokemon.nome}} - Level:<input type="number" ng-model="pokemon.level" min="1" max="99">
-                        <span class="btn btn-danger" ng-click="vm.excluirPokemonDaListaTemporaria($index, vm.treinadorParaAdicionarPokemon.pokemons)">X</span>
-                    </li>
-                </ul>
-                <button class="btn" ng-click="vm.concluirEdicao()" ng-disabled="vm.formularioEditarTreinador.$invalid">Concluir</button>
-
-            </form>
         </div>
         
-        
-
+         -->
+<!-- 
         <div class="alert alert-danger aviso" ng-show="uservm.erro">
             {{uservm.mensagemErro}}
-        </div>
+        </div> -->
     </div>
 </body>
 
