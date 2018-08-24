@@ -1,6 +1,8 @@
 angular.module('treinadorPokemon')
-    .controller('treinadorController', function (pokemonService) {
+    .controller('treinadorController', ['$scope','pokemonService',function ($scope,pokemonService) {
         var vm = this;
+        
+        
 
         vm.treinadores = [
             { nome: 'Régis', cpf: '12345678900', idade: 21, pokemons: [] }
@@ -43,18 +45,6 @@ angular.module('treinadorPokemon')
             vm.flagFormularioCadastrar = !vm.flagFormularioCadastrar;
         }
 
-        vm.adicionarPokemonListaTemproaria = function (pokemon, treinador) {
-            if (vm.listaPokemonTemporaria) {
-                if (!pokemon || pokemonJaExiste(pokemon, vm.listaPokemonTemporaria)) {
-                    //mensagem de erro
-                    return;
-                }
-                vm.listaPokemonTemporaria.push(pokemon);
-            } else {
-                vm.listaPokemonTemporaria = [pokemon];
-            }
-        }
-
         vm.excluirPokemonDaListaTemporaria = function (indicePokemon, listaTemporaria) {
             listaTemporaria.splice(indicePokemon, 1);
         }
@@ -63,17 +53,9 @@ angular.module('treinadorPokemon')
             treinador.pokemons.splice(indicePokemon, 1);
         }
 
-        vm.adicionarPokemonTreinador = function (pokemon, treinador) {
-            if (!pokemon || pokemonJaExiste(pokemon, treinador.pokemons)) {
-                //mensagem de erro
-                return;
-            }
-            treinador.pokemons.push(pokemon);
-        }
-
         vm.mostrarTelaDePesquisa = function () {
             vm.flagPesquisarPokemon = !vm.flagPesquisarPokemon;
             vm.listaPokemonsPesquisado = vm.pokemons;
         }
-    });
+    }]);
 

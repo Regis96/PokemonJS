@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="./node_modules/angular/angular.js"></script>
+    <script src="./node_modules/angular-animate/angular-animate.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -10,6 +11,8 @@
     <script src="./node_modules/bootstrap/js/dist/util.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/bootstrap/js/dist/modal.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="./index.css">
     <script src="./app.js"></script>
@@ -21,12 +24,13 @@
 </head>
 
 <body ng-app="treinadorPokemon">
-
     <div id="main" ng-controller="usuarioController as uservm">
         <div ng-if="!uservm.usuario.logado">
-            <input type="text" class="form-control" placeholder="Usuario" ng-model="uservm.usuario.login">
-            <input type="password" class="form-control" placeholder="Senha" ng-model="uservm.usuario.senha">
-            <button class="btn btn-success" ng-click="uservm.tentarLogar(uservm.usuario)">Logar</button>
+            <form>
+                <input type="text" class="form-control" placeholder="Usuario" ng-model="uservm.usuario.login">
+                <input type="password" class="form-control" placeholder="Senha" ng-model="uservm.usuario.senha">
+                <button class="btn btn-success" ng-click="uservm.tentarLogar(uservm.usuario)">Logar</button>
+            </form>
         </div>
         <p></p>
         <div ng-if="uservm.usuario.logado" ng-controller="treinadorController as vm">
@@ -50,11 +54,10 @@
                             <span ng-if="(value.length || value > 0) && key !== 'pokemons'">{{value}}</span>
 
                             <span ng-if="value.length && key === 'pokemons'" data-toggle="modal" data-target="#informacoesPokemons">
-                                <span ng-repeat="pokemon in value track by $index"><img ng-src="{{pokemon.icone}}">({{pokemon.level}})
-                                </span>
+                                <span class="btn btn-link">{{treinador.pokemons.length}}</span>
 
                                 <div class="modal fade" id="informacoesPokemons" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document" >
+                                    <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Equipe do {{treinador.nome}}</h5>
@@ -139,6 +142,12 @@
                 <button class="btn" ng-click="vm.concluirEdicao()" ng-disabled="vm.formularioEditarTreinador.$invalid">Concluir</button>
 
             </form>
+        </div>
+        
+        
+
+        <div class="alert alert-danger aviso" ng-show="uservm.erro">
+            {{uservm.mensagemErro}}
         </div>
     </div>
 </body>

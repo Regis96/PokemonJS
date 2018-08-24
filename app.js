@@ -1,1 +1,1 @@
-angular.module('treinadorPokemon',[]);  
+angular.module('treinadorPokemon',['ngAnimate']);  

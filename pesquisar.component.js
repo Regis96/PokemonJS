@@ -15,9 +15,11 @@ angular.module('treinadorPokemon')
 
                 $scope.adicionarNaListaAlvo = function (pokemon, listaAlvo) {
                     if (pokemon) {
-                        if (pokemonJaExiste(pokemon, listaAlvo) || listaAlvo.length > 2) {
-                            //mensagem de erro
+                        if (pokemonJaExiste(pokemon, listaAlvo)) {
+                            $scope.$emit('erro', { mensagem: 'Pokémon ja existe.' });
                             return;
+                        } else if (listaAlvo.length > 2) {
+                            $scope.$emit('erro', { mensagem: 'O límite de Pokémons por treinador foi atingido.' });
                         } else {
                             listaAlvo.push(angular.copy(pokemon));
                         }
@@ -59,7 +61,6 @@ angular.module('treinadorPokemon')
 function pokemonJaExiste(pokemon, listaPokemons) {
     for (var pokemonTemp of listaPokemons) {
         if (pokemonTemp.id === pokemon.id) {
-            //mostrar mensagem de erro
             return true;
         }
     }

@@ -6,18 +6,24 @@
 
     <div>
         <table class="table table-hover table-scroll">
-            <thead >
+            <thead>
                 <tr>
-                    <td class="capitalize texto-centralizado" ng-repeat="(key,value) in listaPokemonsPesquisado[0]"  ng-if="key !== 'id'">
+                    <td class="capitalize texto-centralizado" ng-repeat="(key,value) in listaPokemonsPesquisado[0]" ng-if="key !== 'id'">
                         <span ng-click="key !== 'icone' ? ordernarPorAtributo(key, ordenacao) : null">{{key}}</span>
-                        <!-- <span ng-class="ordenacao ? 'arrow-top' : 'arrow-bottom'"></span> -->
-                        <!-- <span class="oi oi-arrow-bottom"></span> -->
+                      
+                        <span ng-if="chaveOrdenacao === key">
+                            <i class="fas" ng-class="{
+                                'fa-arrow-up' : ordenacao,
+                                'fa-arrow-down': !ordenacao 
+                            }"></i>
+                        </span>
                     </td>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="pokemon in listaPokemonsPesquisado | orderBy: chaveOrdenacao : ordenacao" ng-click="adicionarNaListaAlvo(pokemon,listaAlvo)" style="cursor: pointer;">
-                    <td class=" texto-centralizado" ng-repeat="(key,value) in pokemon" ng-if="key !== 'id'" > 
+                <tr ng-repeat="pokemon in listaPokemonsPesquisado | orderBy: chaveOrdenacao : ordenacao" ng-click="adicionarNaListaAlvo(pokemon,listaAlvo)"
+                    style="cursor: pointer;">
+                    <td class=" texto-centralizado" ng-repeat="(key,value) in pokemon" ng-if="key !== 'id'">
                         <span class="capitalize" ng-if="key !== 'id' && key !== 'icone' && key !== 'tipos'">
                             {{value}}
                         </span>

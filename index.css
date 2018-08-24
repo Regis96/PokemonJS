@@ -19,12 +19,18 @@
     text-align: center;
 }
 
+.aviso{
+    transition: all linear 0.5s;
+    position: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 5%;
+    width: 80%
+}
 
-
-
-
-
-
+.aviso.ng-hide{
+    opacity: 0;
+}
 
 
 
