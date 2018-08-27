@@ -24,7 +24,7 @@ angular.module('treinadorPokemon')
                             listaAlvo.push(angular.copy(pokemon));
                         }
                     }
-                }
+                };
 
                 $scope.pesquisarPokemon = function (termoPokemonPesquisado, pokemons) {
                     var listaTempPokemons = [];
@@ -33,7 +33,7 @@ angular.module('treinadorPokemon')
                             listaTempPokemons.push($scope.pokemonsLocais[indice]);
                             continue;
                         }
-                        for (var tipo of $scope.pokemonsLocais[indice]['tipos']) {
+                        for (var tipo of $scope.pokemonsLocais[indice].tipos) {
                             if (tipo.toUpperCase().includes(termoPokemonPesquisado.toUpperCase())) {
                                 listaTempPokemons.push($scope.pokemonsLocais[indice]);
                                 break;
@@ -41,7 +41,7 @@ angular.module('treinadorPokemon')
                         }
                     }
                     $scope.listaPokemonsPesquisado = listaTempPokemons;
-                }
+                };
 
                 $scope.ordernarPorAtributo = function (atributo, ordernacao) {
                     $scope.chaveOrdenacao = atributo;
@@ -51,11 +51,11 @@ angular.module('treinadorPokemon')
                         $scope.atributo = atributo;
                         $scope.ordenacao = false;
                     }
-                }
+                };
             }]
 
 
-        }
+        };
     });
 
 function pokemonJaExiste(pokemon, listaPokemons) {

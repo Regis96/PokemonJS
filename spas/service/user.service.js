@@ -5,7 +5,7 @@ angular.module('treinadorPokemon')
         this.usuarios = [
             { login: 'regis', senha: '1' },
             { login: 'italo', senha: '87654321' }
-        ]
+        ];
 
         this.logar = function(usuario){
             for (var each of this.usuarios) {
@@ -18,10 +18,10 @@ angular.module('treinadorPokemon')
                     }
                 }
             }
-        }
+        };
 
         this.deslogar = function(){
             this.usuario = null;
             $window.location.href = '/';
-        }
-    }])
+        };
+    }]);

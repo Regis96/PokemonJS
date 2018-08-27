@@ -11,10 +11,10 @@ angular.module('treinadorPokemon')
 
             uservm.tentarLogar = function (usuario) {
                 userService.logar(usuario);
-            }
+            };
 
 
             uservm.deslogar = function () {
                 this.userSevice.deslogar();
-            }
+            };
         }]);

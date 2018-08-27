@@ -10,7 +10,7 @@
                 <tr>
                     <td class="capitalize texto-centralizado" ng-repeat="(key,value) in listaPokemonsPesquisado[0]" ng-if="key !== 'id'">
                         <span ng-click="key !== 'icone' ? ordernarPorAtributo(key, ordenacao) : null">{{key}}</span>
-                      
+
                         <span ng-if="chaveOrdenacao === key">
                             <i class="fas" ng-class="{
                                 'fa-arrow-up' : ordenacao,
