@@ -6,7 +6,6 @@
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    margin-top: 50px;
 }
 
 .lista-com-overflow{
@@ -32,7 +31,9 @@
     opacity: 0;
 }
 
-
+.fundo-amarelo,.fundo-amarelo:hover{
+    background-color: #f4d742 !important;
+}
 
 
 

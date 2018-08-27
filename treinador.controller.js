@@ -26,13 +26,9 @@ angular.module('treinadorPokemon')
             vm.pokemon = null;
         }
 
-        vm.mostrarTelaDeCadastro = function () {
-            vm.flagFormularioCadastrar = !vm.flagFormularioCadastrar;
-        }
-
-        vm.excluirPokemonDaListaTemporaria = function (indicePokemon, listaTemporaria) {
-            listaTemporaria.splice(indicePokemon, 1);
-        }
+        // vm.mostrarTelaDeCadastro = function () {
+        //     vm.flagFormularioCadastrar = !vm.flagFormularioCadastrar;
+        // }
 
         vm.excluirPokemonDoTreinador = function (indicePokemon, treinador) {
             treinador.pokemons.splice(indicePokemon, 1);

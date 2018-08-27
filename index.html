@@ -2,50 +2,55 @@
 
 <head>
     <meta charset="UTF-8">
-    
+    <!-- <base href="/"> -->
     <script src="//localhost:35729/livereload.js"></script>
     <script src="./node_modules/angular/angular.js"></script>
     <script src="./node_modules/angular-animate/angular-animate.min.js"></script>
     <script src="./node_modules/angular-route/angular-route.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+
     <script src="./node_modules/bootstrap/js/dist/util.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/bootstrap/js/dist/modal.js"></script>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="./index.css">
     <script src="./app.js"></script>
-    <script src="./app.routing.js"></script>
+    <script src="./spas/pokemon/pesquisa-pokemon-directive/pesquisar.directive.js"></script>
     <script src="./spas/service/pokemons.service.js"></script>
     <script src="./spas/service/user.service.js"></script>
     <script src="./spas/login/login.controller.js"></script>
-    <script src="./spas/cadastro/cadastro.controller.tpl.html"></script>
+    <script src="./spas/cadastro/cadastro.controller.js"></script>
     <script src="./spas/pokemon/pokemon.controller.js"></script>
     <script src="./spas/treinador/treinador.controller.js"></script>
+    <script src="./spas/verificacao-usuario/verificacao-usuario.controller.js"></script>
+
     <title>Pokémon</title>
 </head>
 
 <body ng-app="treinadorPokemon">
-    <div id="main" ng-view>
-
-        <!-- <p></p>
-        <div ng-if="uservm.usuario.logado" ng-controller="treinadorController as vm">
-            <div class="row">
-                <button class="btn btn-primary" ng-click="vm.mostrarTelaDeCadastro()">Cadastrar</button>
-                 <button class="btn btn-secondary" ng-click="vm.mostrarTelaDePesquisa()">Pesquisar</button> 
-                <button class="btn btn-danger" ng-click="uservm.deslogar()">Sair</button>
+    <div id="main">
+        <div class="container" ng-controller="verificacaoUsuarioController as vm">
+            <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+                <ul class="navbar-nav" ng-if="vm.isObjetoVazio(vm.usuario)">
+                    <li class="nav-item"><a href="#/login" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="#/cadastrar" class="nav-link">Cadastrar</a></li>
+                </ul>
+                <ul class="navbar-nav" ng-if="!vm.isObjetoVazio(vm.usuario)">
+                    <li class="nav-item active"><a href="#/treinadores" class="nav-link">Treinadores</a></li>
+                    <li class="nav-item"><span class="btn btn-danger" style="float:right" ng-click="vm.deslogar()">Sair</span></Li>
+                </ul>
+            </nav>
+            <div ng-if="!vm.isObjetoVazio(vm.usuario)">
+                Bem vindo, {{vm.usuario.login}}!
             </div>
+        </div><br>
+        <div ng-view>
         </div>
-        
-         -->
-<!-- 
-        <div class="alert alert-danger aviso" ng-show="uservm.erro">
-            {{uservm.mensagemErro}}
-        </div> -->
     </div>
 </body>
 

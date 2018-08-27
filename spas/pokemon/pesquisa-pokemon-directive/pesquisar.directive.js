@@ -1,17 +1,18 @@
 // Cria uma diretiva tendo como parametros uma string e uma function
 angular.module('treinadorPokemon')
-    .directive('pesquisaPokemon', function (pokemonService) {
+    .directive('pesquisaPokemon', function () {
         return {
             restrict: '',
-            templateUrl: 'pesquisa.directive.tpl.html',
+            templateUrl: 'spas/pokemon/pesquisa-pokemon-directive/pesquisa.directive.tpl.html',
             scope: {
                 listaAlvo: '=',
+                pokemonsLocais: '='
             },
             controller: ['$scope', function ($scope) {
-                $scope.pokemonsLocais = pokemonService.getPokemons();
                 $scope.listaPokemonsPesquisado = $scope.pokemonsLocais;
                 $scope.ordenacao = false;
                 $scope.atributo = 'nome';
+                // $scope.chave = 'nome';
 
                 $scope.adicionarNaListaAlvo = function (pokemon, listaAlvo) {
                     if (pokemon) {
@@ -22,6 +23,7 @@ angular.module('treinadorPokemon')
                             $scope.$emit('erro', { mensagem: 'O límite de Pokémons por treinador foi atingido.' });
                         } else {
                             listaAlvo.push(angular.copy(pokemon));
+                            pokemon.selecionado = true;
                         }
                     }
                 };
@@ -53,8 +55,6 @@ angular.module('treinadorPokemon')
                     }
                 };
             }]
-
-
         };
     });
 

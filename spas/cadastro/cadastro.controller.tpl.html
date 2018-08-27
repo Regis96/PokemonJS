@@ -1,17 +1,18 @@
-<div ng-controller="cadastroController">
-    <form name="vm.formularioTreinador" ng-if="vm.flagFormularioCadastrar">
-        <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.nome" ng-required="true"><br>
+<div ng-controller="cadastroController as vm">
+    <form name="vm.formularioTreinador">
+        <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.login" ng-required="true"><br>
         <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinador.cpf" ng-required="true"><br>
         <input type="number" class="form-control" placeholder="Idade" min="10" max="200" ng-model="vm.treinador.idade" ng-required="true"><br>
+        <input type="password" class="form-control" maxlength="15" placeholder="Senha" ng-model="vm.treinador.senha" ng-required="true"><br>
 
 
-        <pesquisa-pokemon lista-alvo="vm.listaPokemonTemporaria"></pesquisa-pokemon>
+        <!-- <pesquisa-pokemon lista-alvo="vm.listaPokemonTemporaria"></pesquisa-pokemon>
         <ul class="lista-com-overflow">
             <li ng-if="vm.listaPokemonTemporaria.length" ng-repeat="pokemon in vm.listaPokemonTemporaria">
                 {{pokemon.nome}} - Level:<input type="number" ng-model="pokemon.level" min="1" max="99">
                 <span class="btn btn-danger" ng-click="vm.excluirPokemonDaListaTemporaria($index, vm.listaPokemonTemporaria)">X</span>
             </li>
-        </ul>
+        </ul> -->
 
         <button class="btn" ng-click="vm.cadastrarTreinador(vm.treinador)" ng-disabled="vm.formularioTreinador.$invalid">Cadastrar</button>
     </form>
