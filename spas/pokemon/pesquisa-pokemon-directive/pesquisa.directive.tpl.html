@@ -17,24 +17,26 @@
         <table class="table table-hover table-scroll">
             <thead>
                 <tr class="capitalize texto-centralizado">
-                    <td>Avatar</td>
+                    <td ng-click="ordernarPorAtributo('id', ordenacao)">
+                        Avatar<i ng-show="chaveOrdenacao === 'id'" ng-class="{'fas fa-arrow-down' : ordenacao, 'fas fa-arrow-up': !ordenacao}"></i>
+                    </td>
                     <td ng-click="ordernarPorAtributo('nome', ordenacao)">
-                        Nome <i ng-show="chaveOrdenacao === 'nome'" ng-class="{'fas fa-arrow-up' : ordenacao, 'fas fa-arrow-down': !ordenacao}"></i>
+                        Nome <i ng-show="chaveOrdenacao === 'nome'" ng-class="{'fas fa-arrow-down' : ordenacao, 'fas fa-arrow-up': !ordenacao}"></i>
                     </td>
                     <td ng-click="ordernarPorAtributo('tipos', ordenacao)">
-                        Tipos <i ng-show="chaveOrdenacao === 'tipos'" ng-class="{'fas fa-arrow-up' : ordenacao, 'fas fa-arrow-down': !ordenacao}"></i>
+                        Tipos <i ng-show="chaveOrdenacao === 'tipos'" ng-class="{'fas fa-arrow-down' : ordenacao, 'fas fa-arrow-up': !ordenacao}"></i>
                     </td>
                     <td ng-click="ordernarPorAtributo('level', ordenacao)">
-                        Level <i ng-show="chaveOrdenacao === 'level'" ng-class="{'fas fa-arrow-up' : ordenacao, 'fas fa-arrow-down': !ordenacao}"></i>
+                        Level <i ng-show="chaveOrdenacao === 'level'" ng-class="{'fas fa-arrow-down' : ordenacao, 'fas fa-arrow-up': !ordenacao}"></i>
                     </td>
                     <td ng-click="ordernarPorAtributo('ataque', ordenacao)">
-                        Ataque <i ng-show="chaveOrdenacao === 'ataque'" ng-class="{'fas fa-arrow-up' : ordenacao, 'fas fa-arrow-down': !ordenacao}"></i>
+                        Ataque <i ng-show="chaveOrdenacao === 'ataque'" ng-class="{'fas fa-arrow-down' : ordenacao, 'fas fa-arrow-up': !ordenacao}"></i>
                     </td>
                     <td ng-click="ordernarPorAtributo('defesa', ordenacao)">
-                        Defesa <i ng-show="chaveOrdenacao === 'defesa'" ng-class="{'fas fa-arrow-up' : ordenacao, 'fas fa-arrow-down': !ordenacao}"></i>
+                        Defesa <i ng-show="chaveOrdenacao === 'defesa'" ng-class="{'fas fa-arrow-down' : ordenacao, 'fas fa-arrow-up': !ordenacao}"></i>
                     </td>
                     <td ng-click="ordernarPorAtributo('vida', ordenacao)">
-                        Vida <i ng-show="chaveOrdenacao === 'vida'" ng-class="{'fas fa-arrow-up' : ordenacao, 'fas fa-arrow-down': !ordenacao}"></i>
+                        Vida <i ng-show="chaveOrdenacao === 'vida'" ng-class="{'fas fa-arrow-down' : ordenacao, 'fas fa-arrow-up': !ordenacao}"></i>
                     </td>
                 </tr>
             </thead>

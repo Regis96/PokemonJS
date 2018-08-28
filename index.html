@@ -45,7 +45,10 @@
                     <li class="nav-item"><span class="btn btn-danger" style="float:right" ng-click="vm.deslogar()">Sair</span></Li>
                 </ul>
             </nav>
-            <div ng-if="!vm.isObjetoVazio(vm.usuario)">
+            <div ng-show="vm.msgErro" class="aviso alert alert-danger">
+                {{vm.msgErro}}!
+            </div>
+            <div ng-show="!vm.isObjetoVazio(vm.usuario)">
                 Bem vindo, {{vm.usuario.login}}!
             </div>
         </div><br>

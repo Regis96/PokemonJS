@@ -1,6 +1,6 @@
 angular.module('treinadorPokemon')
     .controller('verificacaoUsuarioController',
-        ['userService', '$rootScope', function (userService, $rootScope) {
+        function (userService, $rootScope, $timeout) {
             var vm = this;
 
             vm.usuario = {};
@@ -9,12 +9,19 @@ angular.module('treinadorPokemon')
                 vm.usuario = usuario;
             });
 
+            $rootScope.$on('erro', function (event, msgErro) {
+                vm.msgErro = msgErro;
+                $timeout(function () {
+                    vm.msgErro = '';
+                }, 2000);
+            });
+
             vm.deslogar = function () {
                 userService.deslogar();
             };
 
-            vm.isObjetoVazio = function(objeto){
+            vm.isObjetoVazio = function (objeto) {
                 return Object.keys(objeto).length === 0;
             };
 
-        }]);
+        });

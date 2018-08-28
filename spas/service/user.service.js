@@ -3,8 +3,8 @@ angular.module('treinadorPokemon')
         this.usuario = {};
 
         this.usuarios = [
-            { login: 'regis', cpf: '12345678911', idade: '21', pokemons : [], senha: '1' },
-            { login: 'italo', cpf: '12345678900', idade: '21', pokemons : [], senha: '87654321' }
+            { login: 'regis', cpf: '12345678911', idade: '21', pokemons: [], senha: '1' },
+            { login: 'italo', cpf: '12345678900', idade: '21', pokemons: [], senha: '87654321' }
         ];
 
         this.logar = function (usuario) {
@@ -19,6 +19,7 @@ angular.module('treinadorPokemon')
                     }
                 }
             }
+            $rootScope.$emit('erro', 'Usuário e/ou senha incorretos');
         };
 
         this.deslogar = function () {

@@ -8,20 +8,21 @@ angular.module('treinadorPokemon')
                 listaAlvo: '=',
                 pokemonsLocais: '='
             },
-            controller: function ($scope, pokemonService) {
+            controller: function ($scope, pokemonService, $rootScope) {
                 $scope.listaPokemonsPesquisado = $scope.pokemonsLocais;
                 $scope.tipos = pokemonService.getTipos();
                 $scope.ordenacao = false;
                 $scope.atributo = 'nome';
+                var countPokemonEncontrado = 0;
                 // $scope.chave = 'nome';
 
                 $scope.adicionarNaListaAlvo = function (pokemon, listaAlvo) {
                     if (pokemon) {
                         if (pokemonJaExiste(pokemon, listaAlvo)) {
-                            $scope.$emit('erro', { mensagem: 'Pokémon ja existe.' });
+                            $scope.$emit('erro', 'Pokémon ja adicionado.');
                             return;
                         } else if (listaAlvo.length > 2) {
-                            $scope.$emit('erro', { mensagem: 'O límite de Pokémons por treinador foi atingido.' });
+                            $scope.$emit('erro', 'O límite de Pokémons por treinador foi atingido.');
                         } else {
                             listaAlvo.push(angular.copy(pokemon));
                             pokemon.selecionado = true;
@@ -30,14 +31,30 @@ angular.module('treinadorPokemon')
                 };
 
                 $scope.pesquisarPokemon = function (termoPesquisado, pokemons, tipos) {
+                    countPokemonEncontrado = 0;
+
                     for (var each of pokemons) {
                         each.escondido = devoEsconderPokemon(each, termoPesquisado, tipos);
+                        if (!each.escondido) {
+                            countPokemonEncontrado++;
+                        }
+                    }
+                    if (!countPokemonEncontrado) {
+                        $rootScope.$emit('erro', 'Nenhum Pokemon encontrado !');
                     }
                 };
 
                 $scope.filtrarPorTipos = function (tipos, pokemons, termoPesquisado) {
+                    countPokemonEncontrado = 0;
+
                     for (var each of pokemons) {
                         each.escondido = devoEsconderPokemon(each, termoPesquisado, tipos);
+                        if (!each.escondido) {
+                            countPokemonEncontrado++;
+                        }
+                    }
+                    if (!countPokemonEncontrado) {
+                        $rootScope.$emit('erro', 'Nenhum Pokemon encontrado !');
                     }
                 };
 
@@ -70,7 +87,7 @@ function devoEsconderPokemon(pokemon, termoPesquisado, tipos) {
         }
     }
 
-    if (tipos[0] || tipos[1]) {
+    if (tipos && (tipos[0] || tipos[1])) {
         if (tipos[0] && tipos[1] && tipos[0] !== tipos[1]) {
             if (pokemon.tipos[0] !== tipos[0].toLowerCase() && pokemon.tipos[0] !== tipos[1].toLowerCase() || pokemon.tipos[1] !== tipos[0].toLowerCase() && pokemon.tipos[1] !== tipos[1].toLowerCase()) {
                 return true;
