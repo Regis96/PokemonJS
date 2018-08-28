@@ -40,7 +40,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="pokemon in listaPokemonsPesquisado | orderBy: atributo : ordenacao" ng-class="{'fundo-amarelo' : pokemon.selecionado}"
-                    ng-hide="pokemon.escondido" ng-click="adicionarNaListaAlvo(pokemon,listaAlvo)" style="cursor: pointer;">
+                    ng-hide="pokemon.escondido" ng-click="adicionarNaListaAlvo(pokemon,listaAlvo)" style="cursor: pointer;" class="texto-centralizado">
 
                     <td><img ng-src="{{pokemon.icone}}"></td>
                     <td>{{pokemon.nome}}</td>

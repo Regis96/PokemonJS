@@ -70,7 +70,7 @@ function devoEsconderPokemon(pokemon, termoPesquisado, tipos) {
         }
     }
 
-    if (tipos) {
+    if (tipos[0] || tipos[1]) {
         if (tipos[0] && tipos[1] && tipos[0] !== tipos[1]) {
             if (pokemon.tipos[0] !== tipos[0].toLowerCase() && pokemon.tipos[0] !== tipos[1].toLowerCase() || pokemon.tipos[1] !== tipos[0].toLowerCase() && pokemon.tipos[1] !== tipos[1].toLowerCase()) {
                 return true;
