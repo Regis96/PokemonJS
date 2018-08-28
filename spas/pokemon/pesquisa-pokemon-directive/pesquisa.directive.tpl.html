@@ -1,9 +1,18 @@
 <form name="formularioPesquisarPokemon">
-    <!-- <input type="text" ng-change="pesquisarPokemonNome(nomePesquisado, pokemons)" class="form-control" ng-model="nomePesquisado" placeholder="Pesquisar por nome">
-                         -->
-    <input type="text" ng-change="pesquisarPokemon(termoPesquisado, pokemonsLocais)" class="form-control" ng-model="termoPesquisado"
-        placeholder="Pesquisar">
 
+    <form>
+        <input type="text" ng-change="pesquisarPokemon(termoPesquisado, pokemonsLocais, tiposModel)" class="form-control" ng-model="termoPesquisado"
+            placeholder="Pesquisar">
+
+        <select class="form-control" ng-model="tiposModel[0]" ng-change="filtrarPorTipos(tiposModel, pokemonsLocais, termoPesquisado)"
+            ng-options="tipo for tipo in tipos">
+            <option value="" selected>Todos</option>
+        </select>
+        <select class="form-control" ng-model="tiposModel[1]" ng-change="filtrarPorTipos(tiposModel, pokemonsLocais, termoPesquisado)"
+            ng-options="tipo for tipo in tipos">
+            <option value="" selected>Todos</option>
+        </select>
+    </form>
     <div>
         <table class="table table-hover table-scroll">
             <thead>
@@ -31,18 +40,19 @@
             </thead>
             <tbody>
                 <tr ng-repeat="pokemon in listaPokemonsPesquisado | orderBy: atributo : ordenacao" ng-class="{'fundo-amarelo' : pokemon.selecionado}"
-                    ng-click="adicionarNaListaAlvo(pokemon,listaAlvo)" style="cursor: pointer;">
-                    <td class=" texto-centralizado" ng-repeat="(key,value) in pokemon" ng-if="key !== 'id' && key !== 'selecionado'">
-                        <span class="capitalize" ng-if="key !== 'id' && key !== 'icone' && key !== 'tipos'">
-                            {{value}}
-                        </span>
-                        <span ng-if="key === 'icone'">
-                            <img ng-src="{{value}}">
-                        </span>
-                        <span class="capitalize" ng-repeat="tipos in value track by $index" ng-if="key === 'tipos'">
-                            {{tipos}}
+                    ng-hide="pokemon.escondido" ng-click="adicionarNaListaAlvo(pokemon,listaAlvo)" style="cursor: pointer;">
+
+                    <td><img ng-src="{{pokemon.icone}}"></td>
+                    <td>{{pokemon.nome}}</td>
+                    <td>
+                        <span class="capitalize" ng-repeat="tipo in pokemon.tipos">
+                            {{tipo}}
                         </span>
                     </td>
+                    <td>{{pokemon.level}}</td>
+                    <td>{{pokemon.ataque}}</td>
+                    <td>{{pokemon.defesa}}</td>
+                    <td>{{pokemon.vida}}</td>
                 </tr>
             </tbody>
         </table>

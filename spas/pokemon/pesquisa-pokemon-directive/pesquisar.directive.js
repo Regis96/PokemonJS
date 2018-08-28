@@ -8,8 +8,9 @@ angular.module('treinadorPokemon')
                 listaAlvo: '=',
                 pokemonsLocais: '='
             },
-            controller: ['$scope', function ($scope) {
+            controller: function ($scope, pokemonService) {
                 $scope.listaPokemonsPesquisado = $scope.pokemonsLocais;
+                $scope.tipos = pokemonService.getTipos();
                 $scope.ordenacao = false;
                 $scope.atributo = 'nome';
                 // $scope.chave = 'nome';
@@ -28,21 +29,16 @@ angular.module('treinadorPokemon')
                     }
                 };
 
-                $scope.pesquisarPokemon = function (termoPokemonPesquisado, pokemons) {
-                    var listaTempPokemons = [];
-                    for (var indice in $scope.pokemonsLocais) {
-                        if ($scope.pokemonsLocais[indice].nome.toUpperCase().includes(termoPokemonPesquisado.toUpperCase())) {
-                            listaTempPokemons.push($scope.pokemonsLocais[indice]);
-                            continue;
-                        }
-                        for (var tipo of $scope.pokemonsLocais[indice].tipos) {
-                            if (tipo.toUpperCase().includes(termoPokemonPesquisado.toUpperCase())) {
-                                listaTempPokemons.push($scope.pokemonsLocais[indice]);
-                                break;
-                            }
-                        }
+                $scope.pesquisarPokemon = function (termoPesquisado, pokemons, tipos) {
+                    for (var each of pokemons) {
+                        each.escondido = devoEsconderPokemon(each, termoPesquisado, tipos);
                     }
-                    $scope.listaPokemonsPesquisado = listaTempPokemons;
+                };
+
+                $scope.filtrarPorTipos = function (tipos, pokemons, termoPesquisado) {
+                    for (var each of pokemons) {
+                        each.escondido = devoEsconderPokemon(each, termoPesquisado, tipos);
+                    }
                 };
 
                 $scope.ordernarPorAtributo = function (atributo, ordernacao) {
@@ -54,7 +50,7 @@ angular.module('treinadorPokemon')
                         $scope.ordenacao = false;
                     }
                 };
-            }]
+            }
         };
     });
 
@@ -64,5 +60,35 @@ function pokemonJaExiste(pokemon, listaPokemons) {
             return true;
         }
     }
+    return false;
+}
+
+function devoEsconderPokemon(pokemon, termoPesquisado, tipos) {
+    if (termoPesquisado) {
+        if (!pokemon.nome.toLowerCase().includes(termoPesquisado.toLowerCase())) {
+            return true;
+        }
+    }
+
+    if (tipos) {
+        if (tipos[0] && tipos[1] && tipos[0] !== tipos[1]) {
+            if (pokemon.tipos[0] !== tipos[0].toLowerCase() && pokemon.tipos[0] !== tipos[1].toLowerCase() || pokemon.tipos[1] !== tipos[0].toLowerCase() && pokemon.tipos[1] !== tipos[1].toLowerCase()) {
+                return true;
+            }
+        } else if (tipos[0] && !tipos[1]) {
+            if (pokemon.tipos[0] !== tipos[0].toLowerCase() && pokemon.tipos[1] !== tipos[0].toLowerCase()) {
+                return true;
+            }
+        } else if (!tipos[0] && tipos[1]) {
+            if (pokemon.tipos[0] !== tipos[1].toLowerCase() && pokemon.tipos[1] !== tipos[1].toLowerCase()) {
+                return true;
+            }
+        } else if (tipos[0] === tipos[1]) {
+            if (pokemon.tipos[1] || pokemon.tipos[0] !== tipos[0].toLowerCase()) {
+                return true;
+            }
+        }
+    }
+
     return false;
 }
