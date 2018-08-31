@@ -1,22 +1,24 @@
 <div ng-controller="treinadorController as vm">
     <table class="table" ng-if="vm.usuarios && vm.usuarios.length && !vm.flagEditar">
         <thead>
-            <tr>
-                <td class="capitalize" ng-repeat="(key,value) in vm.usuarios[0]" ng-show="key !== 'senha'">
-                    {{key}}
-                </td>
-                <td></td>
+            <tr class="texto-centralizado">
+                <td>Nome</td>
+                <td>E-Mail</td>
+                <td>Idade</td>
+                <td>Pokemons</td>
+                <td>Editar</td>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="treinador in vm.usuarios">
-                <td valign="bottom" ng-repeat="(key,value) in treinador" ng-if="key !== 'senha'">
-                    <span ng-if="(value.length || value > 0) && key !== 'pokemons'">{{value}}</span>
-
-                    <span ng-show="value.length && key === 'pokemons'">
-                        <span data-toggle="modal" data-target="#informacoesPokemonss" ng-click="vm.selecionarTreinador(treinador)" class="btn btn-link">{{treinador.pokemons.length}}</span>
+            <tr ng-repeat="treinador in vm.usuarios" class="texto-centralizado">
+                <td>{{treinador.nome}}</td>
+                <td>{{treinador.usuario.email}}</td>
+                <td>{{treinador.idade}}</td>
+                <td>
+                    <span data-toggle="modal" ng-if="treinador.pokemons.length" data-target="#informacoesPokemonss" ng-click="vm.selecionarTreinador(treinador)"
+                        class="btn btn-link">
+                        {{treinador.pokemons.length}}
                     </span>
-
                 </td>
                 <td>
                     <span class="btn btn-primary" ng-if="vm.usuario.cpf === treinador.cpf" ng-click="vm.editarTreinador(treinador)">Editar</span>
@@ -50,7 +52,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Equipe do {{vm.treinadorSelecionado.login}}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Equipe do {{vm.treinadorSelecionado.nome}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -58,25 +60,29 @@
                 <div class="modal-body">
                     <table class="table table-hover table-scroll">
                         <thead>
-                            <tr>
-                                <td class="capitalize texto-centralizado" ng-repeat="(key,value) in vm.treinadorSelecionado.pokemons[0]" ng-if="key !== 'id'">
-                                    <span>{{key}}</span>
-                                </td>
+                            <tr class="texto-centralizado">
+                                <td>Avatar</td>
+                                <td>Nome</td>
+                                <td>Tipos</td>
+                                <td>Level</td>
+                                <td>Ataque</td>
+                                <td>Defesa</td>
+                                <td>Vida</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="pokemon in vm.treinadorSelecionado.pokemons">
-                                <td class=" texto-centralizado" ng-repeat="(key,value) in pokemon" ng-if="key !== 'id'">
-                                    <span class="capitalize" ng-if="key !== 'id' && key !== 'icone' && key !== 'tipos'">
-                                        {{value}}
-                                    </span>
-                                    <span ng-if="key === 'icone'">
-                                        <img ng-src="{{value}}">
-                                    </span>
-                                    <span class="capitalize" ng-repeat="tipos in value track by $index" ng-if="key === 'tipos'">
-                                        {{tipos}}
+                            <tr ng-repeat="pokemon in vm.treinadorSelecionado.pokemons" class="texto-centralizado">
+                                <td><img ng-src="./spas/resources/icones/{{pokemon.id + 1}}.png"></td>
+                                <td>{{pokemon.nome}}</td>
+                                <td>
+                                    <span class="capitalize" ng-repeat="tipo in pokemon.tipos">
+                                        {{tipo.nome}}
                                     </span>
                                 </td>
+                                <td>{{pokemon.level}}</td>
+                                <td>{{pokemon.ataque}}</td>
+                                <td>{{pokemon.defesa}}</td>
+                                <td>{{pokemon.vida}}</td>
                             </tr>
                         </tbody>
                     </table>

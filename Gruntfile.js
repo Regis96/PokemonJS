@@ -29,7 +29,7 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            files: ['spas/**/*.js','spas/**/*.html','*.js','*.html'],
+            files: ['spas/**/*.js', 'spas/**/*.html', '*.js', '*.html'],
             tasks: ['build'],
             options: {
                 reload: true,
@@ -42,6 +42,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['jshint','connect','watch']);
-    grunt.registerTask('build',['jshint']);
-}
+    grunt.registerTask('default', ['jshint', 'connect', 'watch']);
+    grunt.registerTask('build', ['jshint']);
+};

@@ -1,46 +1,59 @@
 angular.module('treinadorPokemon')
-    .service('userService', ['$location', '$rootScope', function ($location, $rootScope) {
-        this.usuario = {};
-
-        this.usuarios = [
-            { login: 'regis', cpf: '12345678911', idade: '21', pokemons: [], senha: '1' },
-            { login: 'italo', cpf: '12345678900', idade: '21', pokemons: [], senha: '87654321' }
-        ];
-
-        this.logar = function (usuario) {
-            for (var each of this.usuarios) {
-                if (each.login === usuario.login) {
-                    if (each.senha === usuario.senha) {
-                        this.usuario = angular.copy(each);
-                        this.erro = false;
-                        $location.path('/treinadores');
-                        $rootScope.$emit('mudancaUsuario', usuario);
-                        return;
+    .service('userService', function ($location, $rootScope, $http) {
+        var vm = this;
+        vm.usuario = {};
+        vm.logar = function (usuario) {
+            vm.getUsuarios()
+                .then(function (response) {
+                    for (var each of response.data) {
+                        if (each.usuario.email === usuario.email) {
+                            if (each.usuario.senha === usuario.senha) {
+                                vm.usuario = angular.copy(each);
+                                vm.erro = false;
+                                $location.path('/treinadores');
+                                $rootScope.$emit('mudancaUsuario', vm.usuario);
+                                return;
+                            }
+                        }
                     }
-                }
-            }
-            $rootScope.$emit('erro', 'Usuário e/ou senha incorretos');
+                }, function (error) {
+                    $rootScope.$emit('erro', 'Usuário e/ou senha incorretos');
+                });
         };
 
-        this.deslogar = function () {
+        vm.deslogar = function () {
             $rootScope.$emit('mudancaUsuario', {});
-            this.usuario = {};
+            vm.usuario = {};
             $location.path('/login');
         };
 
-        this.getUsuario = function () {
-            return this.usuario;
+        //usuario logado
+        vm.getUsuario = function () {
+            return vm.usuario;
         };
 
-        this.getUsuarios = function () {
-            return this.usuarios;
+        vm.getUsuarios = function () {
+            return $http({
+                method: 'GET',
+                url: 'http://localhost/pokemon/rest/treinador/'
+            });
         };
 
-        this.cadastrarTreinador = function (treinador) {
-            this.usuarios.push(treinador);
-            this.usuario = angular.copy(treinador);
-            this.erro = false;
-            $location.path('/treinadores');
-            $rootScope.$emit('mudancaUsuario', treinador);
+        vm.cadastrarTreinador = function (treinador) {
+            for (var each of treinador.pokemons) {
+                delete each.icone;
+            }
+            $http({
+                method: 'POST',
+                url: 'http://localhost/pokemon/rest/treinador/',
+                data: treinador
+            }).then(function (response) {
+                vm.usuario = angular.copy(treinador);
+                vm.erro = false;
+                $location.path('/treinadores');
+                $rootScope.$emit('mudancaUsuario', treinador);
+            }, function (error) {
+                $rootScope.$emit('erro', 'Erro:' + error);
+            });
         };
-    }]);
+    });

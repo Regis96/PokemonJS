@@ -12,7 +12,7 @@ angular.module('treinadorPokemon')
                 $scope.listaPokemonsPesquisado = $scope.pokemonsLocais;
                 $scope.tipos = pokemonService.getTipos();
                 $scope.ordenacao = false;
-                $scope.atributo = 'nome';
+                $scope.atributo = 'id';
                 var countPokemonEncontrado = 0;
                 // $scope.chave = 'nome';
 
@@ -34,7 +34,7 @@ angular.module('treinadorPokemon')
                     countPokemonEncontrado = 0;
 
                     for (var each of pokemons) {
-                        each.escondido = devoEsconderPokemon(each, termoPesquisado, tipos);
+                        each.escondido = devoEsconderPokemon(each, termoPesquisado, tempTipos);
                         if (!each.escondido) {
                             countPokemonEncontrado++;
                         }
@@ -46,9 +46,10 @@ angular.module('treinadorPokemon')
 
                 $scope.filtrarPorTipos = function (tipos, pokemons, termoPesquisado) {
                     countPokemonEncontrado = 0;
-
                     for (var each of pokemons) {
-                        each.escondido = devoEsconderPokemon(each, termoPesquisado, tipos);
+                        var tempPoke = angular.copy(each);
+                        tempPoke.tipos = [each.tipos[0].nome, each.tipos[1] ? each.tipos[1].nome : undefined];
+                        each.escondido = devoEsconderPokemon(tempPoke, termoPesquisado, tipos);
                         if (!each.escondido) {
                             countPokemonEncontrado++;
                         }

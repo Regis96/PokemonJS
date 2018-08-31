@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="./index.css">
-    <script src="./app.js"></script>
+    <link rel="stylesheet" type="text/css" href="./spas/index.css">
+    <script src="./spas/app.js"></script>
     <script src="./spas/pokemon/pesquisa-pokemon-directive/pesquisar.directive.js"></script>
     <script src="./spas/service/pokemons.service.js"></script>
     <script src="./spas/service/user.service.js"></script>
@@ -49,7 +49,7 @@
                 {{vm.msgErro}}!
             </div>
             <div ng-show="!vm.isObjetoVazio(vm.usuario)">
-                Bem vindo, {{vm.usuario.login}}!
+                Bem vindo, {{vm.usuario.nome}}!
             </div>
         </div><br>
         <div ng-view>

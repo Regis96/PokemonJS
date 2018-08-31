@@ -18,17 +18,16 @@ angular.module('treinadorPokemon', ['ngRoute'])
             })
             .otherwise({
                 redirectTo: '/login'
-            })
+            });
     }).run(function ($rootScope, userService, $location) {
         $rootScope.$on('$routeChangeStart', function ($event, next, current) {
             var usuario = userService.getUsuario();
-            if ((next.$$route.originalPath === '/login'
-                || next.$$route.originalPath === '/cadastrar')
-                && (Object.keys(usuario).length > 0)) {
+            if (next.$$route && ((next.$$route.originalPath === '/login' || next.$$route.originalPath === '/cadastrar') && (Object.keys(usuario).length > 0))) {
                 $location.path('/treinadores');
+                return;
             }
 
-            if (next.$$route.originalPath !== '/login' && next.$$route.originalPath !== '/cadastrar' && (Object.keys(usuario).length === 0)) {
+            if (next.$$route && next.$$route.originalPath !== '/login' && next.$$route.originalPath !== '/cadastrar' && (Object.keys(usuario).length === 0)) {
                 $location.path('/login');
             }
         });

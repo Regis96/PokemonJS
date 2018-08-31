@@ -2,7 +2,12 @@ angular.module('treinadorPokemon')
     .controller('treinadorController', function (userService, pokemonService, $rootScope) {
         var vm = this;
 
-        vm.usuarios = userService.getUsuarios();
+        userService.getUsuarios()
+            .then(function (response) {
+                vm.usuarios = response.data;
+            }, function (error) {
+
+            });
         vm.usuario = userService.getUsuario();
         vm.pokemons = pokemonService.getPokemons();
 
