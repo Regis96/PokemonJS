@@ -1,5 +1,14 @@
-angular.module('treinadorPokemon')
-    .service('userService', function ($location, $rootScope, $http) {
+(function (angular) {
+    angular.module('treinadorPokemon')
+        .service('userService', userService);
+
+    userService.$inject = [
+        '$location',
+        '$rootScope',
+        '$http'
+    ];
+
+    function userService() {
         var vm = this;
         vm.usuario = {};
         vm.logar = function (usuario) {
@@ -56,4 +65,5 @@ angular.module('treinadorPokemon')
                 $rootScope.$emit('erro', 'Erro:' + error);
             });
         };
-    });
+    }
+})(angular);

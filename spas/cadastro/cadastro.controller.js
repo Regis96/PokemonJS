@@ -1,5 +1,13 @@
 angular.module('treinadorPokemon')
-    .controller('cadastroController', function (userService, pokemonService, $rootScope) {
+    .controller('cadastroController', cadastroController);
+
+    cadastroController.$inject = [
+        'userService', 
+        'pokemonService', 
+        '$rootScope'
+    ];
+
+    function cadastroController(userService,pokemonService,$rootScope) {
         var vm = this;
 
         vm.pokemons = pokemonService.getPokemons();
@@ -66,4 +74,4 @@ angular.module('treinadorPokemon')
         //     return true;
         // }
 
-    });
+    }

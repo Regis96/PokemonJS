@@ -1,6 +1,9 @@
-// Cria uma diretiva tendo como parametros uma string e uma function
-angular.module('treinadorPokemon')
-    .directive('pesquisaPokemon', function () {
+(function (angular) {
+    // Cria uma diretiva tendo como parametros uma string e uma function
+    angular.module('treinadorPokemon')
+        .directive('pesquisaPokemon', pesquisaPokemon);
+
+    function pesquisaPokemon() {
         return {
             restrict: '',
             templateUrl: 'spas/pokemon/pesquisa-pokemon-directive/pesquisa.directive.tpl.html',
@@ -70,43 +73,44 @@ angular.module('treinadorPokemon')
                 };
             }
         };
-    });
-
-function pokemonJaExiste(pokemon, listaPokemons) {
-    for (var pokemonTemp of listaPokemons) {
-        if (pokemonTemp.id === pokemon.id) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function devoEsconderPokemon(pokemon, termoPesquisado, tipos) {
-    if (termoPesquisado) {
-        if (!pokemon.nome.toLowerCase().includes(termoPesquisado.toLowerCase())) {
-            return true;
-        }
     }
 
-    if (tipos && (tipos[0] || tipos[1])) {
-        if (tipos[0] && tipos[1] && tipos[0] !== tipos[1]) {
-            if (pokemon.tipos[0] !== tipos[0].toLowerCase() && pokemon.tipos[0] !== tipos[1].toLowerCase() || pokemon.tipos[1] !== tipos[0].toLowerCase() && pokemon.tipos[1] !== tipos[1].toLowerCase()) {
-                return true;
-            }
-        } else if (tipos[0] && !tipos[1]) {
-            if (pokemon.tipos[0] !== tipos[0].toLowerCase() && pokemon.tipos[1] !== tipos[0].toLowerCase()) {
-                return true;
-            }
-        } else if (!tipos[0] && tipos[1]) {
-            if (pokemon.tipos[0] !== tipos[1].toLowerCase() && pokemon.tipos[1] !== tipos[1].toLowerCase()) {
-                return true;
-            }
-        } else if (tipos[0] === tipos[1]) {
-            if (pokemon.tipos[1] || pokemon.tipos[0] !== tipos[0].toLowerCase()) {
+    function pokemonJaExiste(pokemon, listaPokemons) {
+        for (var pokemonTemp of listaPokemons) {
+            if (pokemonTemp.id === pokemon.id) {
                 return true;
             }
         }
+        return false;
     }
 
-    return false;
-}
+    function devoEsconderPokemon(pokemon, termoPesquisado, tipos) {
+        if (termoPesquisado) {
+            if (!pokemon.nome.toLowerCase().includes(termoPesquisado.toLowerCase())) {
+                return true;
+            }
+        }
+
+        if (tipos && (tipos[0] || tipos[1])) {
+            if (tipos[0] && tipos[1] && tipos[0] !== tipos[1]) {
+                if (pokemon.tipos[0] !== tipos[0].toLowerCase() && pokemon.tipos[0] !== tipos[1].toLowerCase() || pokemon.tipos[1] !== tipos[0].toLowerCase() && pokemon.tipos[1] !== tipos[1].toLowerCase()) {
+                    return true;
+                }
+            } else if (tipos[0] && !tipos[1]) {
+                if (pokemon.tipos[0] !== tipos[0].toLowerCase() && pokemon.tipos[1] !== tipos[0].toLowerCase()) {
+                    return true;
+                }
+            } else if (!tipos[0] && tipos[1]) {
+                if (pokemon.tipos[0] !== tipos[1].toLowerCase() && pokemon.tipos[1] !== tipos[1].toLowerCase()) {
+                    return true;
+                }
+            } else if (tipos[0] === tipos[1]) {
+                if (pokemon.tipos[1] || pokemon.tipos[0] !== tipos[0].toLowerCase()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+})(angular);
