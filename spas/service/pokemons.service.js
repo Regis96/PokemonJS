@@ -22,6 +22,8 @@
                 'Fada'
             ];
         };
+
+        console.log('oiii');
         this.getPokemons = function () {
             var obj = [{
                 "icone": "./spas/resources/icones/1.png",
