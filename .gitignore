@@ -1,5 +1,4 @@
 /node_modules
-/spas/resources/icones/*.png
 *.json
 grab.js
 /socket

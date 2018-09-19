@@ -14,8 +14,8 @@
                 <td>{{treinador.usuario.email}}</td>
                 <td>{{treinador.idade}}</td>
                 <td>
-                    <span data-toggle="modal" ng-if="treinador.pokemons.length" data-target="#informacoesPokemonss" ng-click="vm.selecionarTreinador(treinador)"
-                        class="btn btn-link">
+                    <span data-toggle="modal" ng-if="treinador.pokemons.length" data-target="#informacoesPokemonss"
+                        ng-click="vm.selecionarTreinador(treinador)" class="btn btn-link">
                         {{treinador.pokemons.length}}
                     </span>
                 </td>
@@ -37,12 +37,12 @@
         <!-- <input type="number" class="form-control" placeholder="Idade" min="10" max="200" ng-model="vm.treinadorEditavel.idade" ng-required="true"><br> -->
 
         <pesquisa-pokemon pokemons-locais="vm.pokemons" lista-alvo="vm.treinadorParaAdicionarPokemon.pokemons"></pesquisa-pokemon>
-        <ul class="lista-com-overflow">
+        <!-- <ul class="lista-com-overflow">
             <li ng-if="vm.treinadorParaAdicionarPokemon.pokemons.length" ng-repeat="pokemon in vm.treinadorParaAdicionarPokemon.pokemons">
                 {{pokemon.nome}}
                 <span class="btn btn-danger" ng-click="vm.excluirPokemonDaListaTemporaria($index, vm.treinadorParaAdicionarPokemon.pokemons, pokemon)">X</span>
             </li>
-        </ul>
+        </ul> -->
         <button class="btn" ng-click="vm.concluirEdicao()" ng-disabled="vm.formularioEditarTreinador.$invalid">Concluir</button>
 
     </form>

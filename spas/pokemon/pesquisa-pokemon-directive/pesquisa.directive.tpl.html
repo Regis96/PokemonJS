@@ -5,18 +5,20 @@
             ng-model="termoPesquisado" placeholder="Pesquisar">
         <hr>
         <div class="row">
-            <select class="form-control col-sm-5" ng-model="tiposModel[0]" ng-change="filtrarPorTipos(tiposModel, pokemonsLocais, termoPesquisado)"
+            <select class="form-control col-sm-6" ng-model="tiposModel[0]" ng-change="filtrarPorTipos(tiposModel, pokemonsLocais, termoPesquisado)"
                 ng-options="tipo for tipo in tipos">
                 <option value="" selected>Todos</option>
             </select>
-            <div class="col-sm-2"></div>
-            <select class="form-control col-sm-5" ng-model="tiposModel[1]" ng-change="filtrarPorTipos(tiposModel, pokemonsLocais, termoPesquisado)"
+            <select class="form-control col-sm-6" ng-model="tiposModel[1]" ng-change="filtrarPorTipos(tiposModel, pokemonsLocais, termoPesquisado)"
                 ng-options="tipo for tipo in tipos">
                 <option value="" selected>Todos</option>
             </select>
         </div>
     </form>
-    <div>
+
+    <picklist lista-original="listaPokemonsPesquisado" lista-item-selecionado="listaAlvo" parametro-comparacao="id"></picklist>
+
+    <!-- <div>
         <table class="table table-hover table-scroll">
             <thead>
                 <tr class="capitalize texto-centralizado">
@@ -62,5 +64,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 </form>
