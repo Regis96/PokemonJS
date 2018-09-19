@@ -5,10 +5,11 @@
     userService.$inject = [
         '$location',
         '$rootScope',
-        '$http'
+        '$http',
+        '$timeout'
     ];
 
-    function userService() {
+    function userService($location, $rootScope, $http, $timeout) {
         var vm = this;
         vm.usuario = {};
         vm.logar = function (usuario) {
@@ -42,28 +43,32 @@
         };
 
         vm.getUsuarios = function () {
-            return $http({
-                method: 'GET',
-                url: 'http://localhost/pokemon/rest/treinador/'
+            return new Promise(function (resolve, reject) {
+                resolve({'data': [vm.usuario]});
             });
+
+            // return $http({
+            //     method: 'GET',
+            //     url: 'http://localhost/pokemon/rest/treinador/'
+            // });
         };
 
         vm.cadastrarTreinador = function (treinador) {
             for (var each of treinador.pokemons) {
                 delete each.icone;
             }
-            $http({
-                method: 'POST',
-                url: 'http://localhost/pokemon/rest/treinador/',
-                data: treinador
-            }).then(function (response) {
-                vm.usuario = angular.copy(treinador);
-                vm.erro = false;
-                $location.path('/treinadores');
-                $rootScope.$emit('mudancaUsuario', treinador);
-            }, function (error) {
-                $rootScope.$emit('erro', 'Erro:' + error);
-            });
+            // $http({
+            //     method: 'POST',
+            //     url: 'http://localhost/pokemon/rest/treinador/',
+            //     data: treinador
+            // }).then(function (response) {
+            vm.usuario = angular.copy(treinador);
+            vm.erro = false;
+            $location.path('/treinadores');
+            $rootScope.$emit('mudancaUsuario', treinador);
+            // }, function (error) {
+            //     $rootScope.$emit('erro', 'Erro:' + error);
+            // });
         };
     }
 })(angular);

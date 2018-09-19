@@ -1,56 +1,25 @@
 <div ng-controller="cadastroController as vm">
     <form ng-hide="vm.isDadosPessoaisPreenchidos" name="vm.formularioTreinador">
-        <input type="email" class="form-control" maxlength="15" placeholder="E-Mail" ng-model="vm.treinador.usuario.email" ng-required="true"><br>
+        <input type="email" class="form-control" maxlength="15" placeholder="E-Mail" ng-model="vm.treinador.usuario.email"
+            ng-required="true"><br>
         <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinador.nome" ng-required="true"><br>
-        <input type="number" class="form-control" placeholder="Idade (10+)" min="10" max="200" ng-model="vm.treinador.idade" ng-required="true"><br>
-        <input type="password" class="form-control" maxlength="15" placeholder="Senha" ng-model="vm.treinador.usuario.senha" ng-required="true"><br>
+        <input type="number" class="form-control" placeholder="Idade (10+)" min="10" max="200" ng-model="vm.treinador.idade"
+            ng-required="true"><br>
+        <input type="password" class="form-control" maxlength="15" placeholder="Senha" ng-model="vm.treinador.usuario.senha"
+            ng-required="true"><br>
 
-        <button class="btn" ng-click="vm.prosseguirCadastro(vm.treinador)" ng-disabled="vm.formularioTreinador.$invalid">Prosseguir</button>
+        <button class="btn btn-primary" ng-click="vm.prosseguirCadastro(vm.treinador)" ng-disabled="vm.formularioTreinador.$invalid">Prosseguir</button>
     </form>
 
     <div ng-show="vm.isDadosPessoaisPreenchidos">
-        <pesquisa-pokemon pokemons-locais="vm.pokemons" lista-alvo="vm.treinador.pokemons"></pesquisa-pokemon>
-
+        <!-- <pesquisa-pokemon pokemons-locais="vm.pokemons" lista-alvo="vm.treinador.pokemons"></pesquisa-pokemon> -->
+        <picklist lista-original="vm.pokemons" lista-item-selecionado="vm.treinador.pokemons" parametro-comparacao="id"></picklist>
+        <tabs>
+            <tab ng-repeat="tab in tabs" tab-title="tab.title">
+                {{tab.content}}
+            </tab>
+        </tabs>
         <hr>
-        <h1>Meu time</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <td>Avatar</td>
-                    <td>Nome</td>
-                    <td>Tipos</td>
-                    <td>Level</td>
-                    <td>Ataque</td>
-                    <td>Defesa</td>
-                    <td>vida</td>
-                    <td>Excluir</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="pokemon in vm.treinador.pokemons">
-                    <td><img ng-src="./spas/resources/icones/{{pokemon.id + 1}}.png"></td>
-                    <td>{{pokemon.nome}}</td>
-                    <td>
-                        <span ng-repeat="tipo in pokemon.tipos">
-                            {{tipo.nome}}
-                        </span>
-                    </td>
-                    <td>{{pokemon.level}}</td>
-                    <td>{{pokemon.ataque}}</td>
-                    <td>{{pokemon.defesa}}</td>
-                    <td>{{pokemon.vida}}</td>
-                    <td>
-                        <span class="btn btn-danger" ng-click="vm.excluirPokemonDaListaTemporaria($index, vm.treinador.pokemons, pokemon)">
-                            X
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-
-        <button class="btn" ng-click="vm.cadastrarTreinador(vm.treinador)" ng-disabled="!vm.treinador.pokemons.length">Cadastrar</button>
+        <button class="btn btn-success" ng-click="vm.cadastrarTreinador(vm.treinador)" ng-disabled="!vm.treinador.pokemons.length">Cadastrar</button>
     </div>
 </div>
-
-<input type="text" ng-maxlength="12" placeholder="cpf">

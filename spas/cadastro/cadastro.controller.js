@@ -15,7 +15,6 @@ angular.module('treinadorPokemon')
         vm.isTreinadorCadastrado = false;
 
         vm.cadastrarTreinador = function (treinador) {
-            console.log(treinador);
             userService.cadastrarTreinador(treinador);
         };
 

@@ -8,6 +8,11 @@
     width: 80%;
 }
 
+.centralizar-verticalmente{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .lista-com-overflow{
     max-height: 300px;
     overflow-y: auto;
@@ -34,8 +39,6 @@
 .fundo-amarelo,.fundo-amarelo:hover{
     background-color: #f4d742 !important;
 }
-
-
 
 
 

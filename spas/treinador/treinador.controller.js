@@ -1,13 +1,25 @@
 angular.module('treinadorPokemon')
-    .controller('treinadorController', function (userService, pokemonService, $rootScope) {
+    .controller('treinadorController', treinadorController);
+    
+    treinadorController.$inject = [
+        'userService',
+        'pokemonService',
+        '$rootScope',
+        '$scope',
+        '$timeout'
+    ];
+
+    function treinadorController (userService, pokemonService, $rootScope, $scope, $timeout) {
         var vm = this;
 
         userService.getUsuarios()
             .then(function (response) {
                 vm.usuarios = response.data;
+                $timeout($scope.$apply(vm.usuarios),100);
             }, function (error) {
-
+                console.log(error);
             });
+            
         vm.usuario = userService.getUsuario();
         vm.pokemons = pokemonService.getPokemons();
 
@@ -38,4 +50,4 @@ angular.module('treinadorPokemon')
         vm.selecionarTreinador = function (treinador) {
             vm.treinadorSelecionado = treinador;
         };
-    });
+    }

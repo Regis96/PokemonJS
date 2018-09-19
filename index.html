@@ -2,7 +2,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- <base href="/"> -->
     <script src="//localhost:35729/livereload.js"></script>
     <script src="./node_modules/angular/angular.js"></script>
     <script src="./node_modules/angular-animate/angular-animate.min.js"></script>
@@ -21,11 +20,11 @@
     <link rel="stylesheet" type="text/css" href="./spas/index.css">
     <script src="./spas/app.js"></script>
     <script src="./spas/pokemon/pesquisa-pokemon-directive/pesquisar.directive.js"></script>
+    <script src="./spas/pokemon/pokemon-picklist-directive/picklist.directive.js"></script>
     <script src="./spas/service/pokemons.service.js"></script>
     <script src="./spas/service/user.service.js"></script>
     <script src="./spas/login/login.controller.js"></script>
     <script src="./spas/cadastro/cadastro.controller.js"></script>
-    <script src="./spas/pokemon/pokemon.controller.js"></script>
     <script src="./spas/treinador/treinador.controller.js"></script>
     <script src="./spas/verificacao-usuario/verificacao-usuario.controller.js"></script>
 
@@ -34,7 +33,7 @@
 
 <body ng-app="treinadorPokemon">
     <div id="main">
-        <div class="container" ng-controller="verificacaoUsuarioController as vm">
+        <div ng-controller="verificacaoUsuarioController as vm">
             <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
                 <ul class="navbar-nav" ng-if="vm.isObjetoVazio(vm.usuario)">
                     <li class="nav-item"><a href="#/login" class="nav-link">Login</a></li>
@@ -49,6 +48,7 @@
                 {{vm.msgErro}}!
             </div>
             <div ng-show="!vm.isObjetoVazio(vm.usuario)">
+                <br>
                 Bem vindo, {{vm.usuario.nome}}!
             </div>
         </div><br>
