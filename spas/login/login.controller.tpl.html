@@ -1,10 +1,9 @@
 <div ng-controller="loginController as vm">
     <div ng-if="!vm.usuario.logado">
         <form name="vm.formLogin">
-            <input type="text" class="form-control" placeholder="E-Mail" ng-model="vm.usuario.email" autofocus ng-required="true">
-            <input type="password" class="form-control" placeholder="Senha" ng-model="vm.usuario.senha" ng-required="true">
+            <input type="text" class="form-control" placeholder="E-Mail" ng-model="vm.usuario.email" autofocus ng-required="true"><br>
+            <input type="password" class="form-control" placeholder="Senha" ng-model="vm.usuario.senha" ng-required="true"><hr>
             <button class="btn btn-success" ng-click="vm.tentarLogar(vm.usuario)" ng-disabled="vm.formLogin.$invalid">Logar</button>
-
         </form>
     </div>
 </div>
