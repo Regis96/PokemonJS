@@ -36,41 +36,41 @@
         <div class="col-sm-2 centralizar-verticalmente" align="center">
             <button class="btn btn-success" ng-click="adicionarItemLista()"> --> </button><br><br>
             <button class="btn btn-success" ng-click="adicionarTodosItensLista()"> >> </button><br><br>
-            <button class="btn btn-danger" ng-click="excluirItemListaTemporaria()"> <-- </button><br><br>
-            <button class="btn btn-danger align-middle" ng-click="excluirTodosItensListaTemporaria()"> << </button>
-         </div>
-         <div class="col-sm-5">
-                        <table class="table table-hover table-scroll" ng-if="listaItemSelecionado.length">
-                            <thead>
-                                <tr class="capitalize texto-centralizado">
-                                    <td>Ícone</td>
-                                    <td>Nome</td>
-                                    <td>Tipos</td>
-                                    <!-- <td>Level</td>
+            <button class="btn btn-danger" ng-click="excluirItemListaTemporaria()">
+                <-- </button> <br><br>
+                    <button class="btn btn-danger align-middle" ng-click="excluirTodosItensListaTemporaria()">
+                        << </button> </div> <div class="col-sm-5">
+                            <table class="table table-hover table-scroll" ng-if="listaItemSelecionado.length">
+                                <thead>
+                                    <tr class="capitalize texto-centralizado">
+                                        <td>Ícone</td>
+                                        <td>Nome</td>
+                                        <td>Tipos</td>
+                                        <!-- <td>Level</td>
                                     <td>Ataque</td>
                                     <td>Defesa</td>
                                     <td>Vida</td> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="capitalize texto-centralizado" ng-repeat="objeto in listaItemSelecionado"
-                                ng-class="{'fundo-amarelo' : objeto.isSelected}" ng-click="objeto.isSelected = !objeto.isSelected">
-                                    <td>
-                                        <img ng-src="./spas/resources/icones/{{objeto.id+1}}.png">
-                                    </td>
-                                    <td>{{objeto.nome}}</td>
-                                    <td>
-                                        <span ng-repeat="tipos in objeto.tipos">
-                                            {{tipos.nome}}
-                                        </span>
-                                    </td>
-                                    <!-- <td>{{pokemon.level}}</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="capitalize texto-centralizado" ng-repeat="objeto in listaItemSelecionado"
+                                        ng-class="{'fundo-amarelo' : objeto.isSelected}" ng-click="objeto.isSelected = !objeto.isSelected">
+                                        <td>
+                                            <img ng-src="./spas/resources/icones/{{objeto.id+1}}.png">
+                                        </td>
+                                        <td>{{objeto.nome}}</td>
+                                        <td>
+                                            <span ng-repeat="tipos in objeto.tipos">
+                                                {{tipos.nome}}
+                                            </span>
+                                        </td>
+                                        <!-- <td>{{pokemon.level}}</td>
                                     <td>{{pokemon.ataque}}</td>
                                     <td>{{pokemon.defesa}}</td>
                                     <td>{{pokemon.vida}}</td> -->
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </tr>
+                                </tbody>
+                            </table>
         </div>
     </div>
 </div>

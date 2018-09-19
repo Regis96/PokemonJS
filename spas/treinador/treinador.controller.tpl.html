@@ -6,7 +6,6 @@
                 <td>E-Mail</td>
                 <td>Idade</td>
                 <td>Pokemons</td>
-                <td>Editar</td>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +33,7 @@
 
     <form name="formularioEditarTreinador" ng-if="vm.flagEditar">
         <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinadorEditavel.login" ng-required="true"><br>
-        <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinadorEditavel.cpf" disabled><br>
+        <!-- <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinadorEditavel.cpf" disabled><br> -->
         <!-- <input type="number" class="form-control" placeholder="Idade" min="10" max="200" ng-model="vm.treinadorEditavel.idade" ng-required="true"><br> -->
 
         <pesquisa-pokemon pokemons-locais="vm.pokemons" lista-alvo="vm.treinadorParaAdicionarPokemon.pokemons"></pesquisa-pokemon>

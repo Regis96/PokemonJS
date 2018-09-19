@@ -44,7 +44,9 @@
 
         vm.getUsuarios = function () {
             return new Promise(function (resolve, reject) {
-                resolve({'data': [vm.usuario]});
+                resolve({
+                    'data': [vm.usuario]
+                });
             });
 
             // return $http({
