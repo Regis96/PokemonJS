@@ -1,16 +1,22 @@
 <div>
     <div class="row">
-        <div class="col-sm-5">
-            <table class="table table-hover table-scroll">
+        <div class="col-sm-5 lista-com-overflow">
+            <div ng-class="{'fundo-amarelo' : objeto.isSelected}" class="tooltip" ng-click="objeto.isSelected = !objeto.isSelected"
+                ng-repeat="objeto in listaTemporaria">
+                {{objeto.nome}}
+                <div class="tooltiptext"> {{objeto}}</div>
+                <br>
+            </div>
+            <!-- <table class="table table-hover table-scroll">
                 <thead>
                     <tr class="capitalize texto-centralizado">
                         <td>Ícone</td>
                         <td>Nome</td>
                         <td>Tipos</td>
-                        <!-- <td>Level</td>
+                        <td>Level</td>
                 <td>Ataque</td>
                 <td>Defesa</td>
-                <td>Vida</td> -->
+                <td>Vida</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,13 +31,13 @@
                                 {{tipos.nome}}
                             </span>
                         </td>
-                        <!-- <td>{{pokemon.level}}</td>
+                        <td>{{pokemon.level}}</td>
                 <td>{{pokemon.ataque}}</td>
                 <td>{{pokemon.defesa}}</td>
-                <td>{{pokemon.vida}}</td> -->
+                <td>{{pokemon.vida}}</td>
                     </tr>
                 </tbody>
-            </table>
+            </table> -->
         </div>
         <div class="col-sm-2 centralizar-verticalmente" align="center">
             <button class="btn btn-success" ng-click="adicionarItemLista()"> --> </button><br><br>

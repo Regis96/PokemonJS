@@ -1,0 +1,22 @@
+<div ng-controller="homeController as vm">
+    <table class="table table-scroll texto-centralizado">
+        <thead>
+            <tr>
+                <td>Nome</td>
+                <td>Idade</td>
+                <td>Desafiar</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="treinador in vm.treinadores" ng-if="treinador.id !== vm.treinador.id">
+                <td>{{treinador.nome}}</td>
+                <td>{{treinador.idade}}</td>
+                <td>
+                    <a href="#/batalhar/{{treinador.id}}">
+                        <img class="icone cor-reversa" src="spas/resources/icones/batalhar.png">
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

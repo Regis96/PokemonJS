@@ -1,95 +1,49 @@
 <div ng-controller="treinadorController as vm">
-    <table class="table" ng-if="vm.usuarios && vm.usuarios.length && !vm.flagEditar">
-        <thead>
-            <tr class="texto-centralizado">
-                <td>Nome</td>
-                <td>E-Mail</td>
-                <td>Idade</td>
-                <td>Pokemons</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="treinador in vm.usuarios" class="texto-centralizado">
-                <td>{{treinador.nome}}</td>
-                <td>{{treinador.usuario.email}}</td>
-                <td>{{treinador.idade}}</td>
-                <td>
-                    <span data-toggle="modal" ng-if="treinador.pokemons.length" data-target="#informacoesPokemonss"
-                        ng-click="vm.selecionarTreinador(treinador)" class="btn btn-link">
-                        {{treinador.pokemons.length}}
-                    </span>
-                </td>
-                <td>
-                    <span class="btn btn-primary" ng-if="vm.usuario.cpf === treinador.cpf" ng-click="vm.editarTreinador(treinador)">Editar</span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-
-    <div class="alert alert-warning" ng-if="!vm.usuarios.length">
-        Não há treinadores cadastrados.
-    </div>
-
-    <form name="formularioEditarTreinador" ng-if="vm.flagEditar">
-        <input type="text" class="form-control" placeholder="Nome" ng-model="vm.treinadorEditavel.login" ng-required="true"><br>
-        <!-- <input type="text" class="form-control" placeholder="Cpf" ng-model="vm.treinadorEditavel.cpf" disabled><br> -->
-        <!-- <input type="number" class="form-control" placeholder="Idade" min="10" max="200" ng-model="vm.treinadorEditavel.idade" ng-required="true"><br> -->
-
-        <pesquisa-pokemon pokemons-locais="vm.pokemons" lista-alvo="vm.treinadorParaAdicionarPokemon.pokemons"></pesquisa-pokemon>
-        <!-- <ul class="lista-com-overflow">
-            <li ng-if="vm.treinadorParaAdicionarPokemon.pokemons.length" ng-repeat="pokemon in vm.treinadorParaAdicionarPokemon.pokemons">
-                {{pokemon.nome}}
-                <span class="btn btn-danger" ng-click="vm.excluirPokemonDaListaTemporaria($index, vm.treinadorParaAdicionarPokemon.pokemons, pokemon)">X</span>
-            </li>
-        </ul> -->
-        <button class="btn" ng-click="vm.concluirEdicao()" ng-disabled="vm.formularioEditarTreinador.$invalid">Concluir</button>
-
-    </form>
-
-    <div class="modal fade" id="informacoesPokemonss" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Equipe do {{vm.treinadorSelecionado.nome}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-hover table-scroll">
-                        <thead>
-                            <tr class="texto-centralizado">
-                                <td>Avatar</td>
-                                <td>Nome</td>
-                                <td>Tipos</td>
-                                <td>Level</td>
-                                <td>Ataque</td>
-                                <td>Defesa</td>
-                                <td>Vida</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="pokemon in vm.treinadorSelecionado.pokemons" class="texto-centralizado">
-                                <td><img ng-src="./spas/resources/icones/{{pokemon.id + 1}}.png"></td>
-                                <td>{{pokemon.nome}}</td>
-                                <td>
-                                    <span class="capitalize" ng-repeat="tipo in pokemon.tipos">
-                                        {{tipo.nome}}
-                                    </span>
-                                </td>
-                                <td>{{pokemon.level}}</td>
-                                <td>{{pokemon.ataque}}</td>
-                                <td>{{pokemon.defesa}}</td>
-                                <td>{{pokemon.vida}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
+    
+    <div class="form-group row">
+        <label for="nome" class="col-sm-1 col-form-label" align="right">Nome:</label>
+        <div class="col-sm-11 capitalize">
+            <input id="nome" type="text" class="form-control" ng-model="vm.usuario.nome" disabled="true">
+            <br>
         </div>
+        <label for="idade" class="col-sm-1 col-form-label" align="right">Idade:</label>
+        <div class="col-sm-11">
+            <input id="idade" type="text" class="form-control" ng-model="vm.usuario.idade" disabled="true">
+            <br>
+        </div>
+        <label for="email" class="col-sm-1 col-form-label" align="right">E-mail:</label>
+        <div class="col-sm-11">
+            <input id="email" type="text" class="form-control" ng-model="vm.usuario.usuario.email" disabled="true">
+            <hr>
+        </div>
+
+        <table class="table table-hover table-scroll texto-centralizado">
+            <thead>
+                <tr>
+                    <td>Avatar</td>
+                    <td>Nome</td>
+                    <td>Tipos</td>
+                    <td>Level</td>
+                    <td>Ataque</td>
+                    <td>Defesa</td>
+                    <td>Vida</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pokemon in vm.usuario.pokemons">
+                    <td><img ng-src="./spas/resources/icones/{{pokemon.id + 1}}.png"></td>
+                    <td>{{pokemon.nome}}</td>
+                    <td class="capitalize">
+                        <span ng-repeat="tipos in pokemon.tipos">
+                            {{tipos.nome}}
+                        </span>
+                    </td>
+                    <td>{{pokemon.level}}</td>
+                    <td>{{pokemon.ataque}}</td>
+                    <td>{{pokemon.defesa}}</td>
+                    <td>{{pokemon.vida}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

@@ -22,7 +22,10 @@ angular.module('treinadorPokemon')
             
         vm.usuario = userService.getUsuario();
         vm.pokemons = pokemonService.getPokemons();
-
+        
+        angular.forEach(vm.pokemons,function(element,index){
+            element.nome = 'Pikachu';
+        });
 
         vm.editarTreinador = function (treinador) {
             vm.treinadorEditavel = treinador;

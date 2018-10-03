@@ -4,9 +4,9 @@ module.exports = function (grunt) {
             options: {
                 esversion: 6
             },
-            all: {
+            js: {
                 src: ['spas/**/*.js']
-            },
+            }
         },
         connect: {
             server: {
@@ -18,7 +18,6 @@ module.exports = function (grunt) {
                         middlewares.unshift(function (req, res, next) {
                             res.setHeader('Access-Control-Allow-Origin', '*');
                             res.setHeader('Access-Control-Allow-Methods', '*');
-                            //a console.log('foo') here is helpful to see if it runs
                             return next();
                         });
 
@@ -29,10 +28,9 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            files: ['spas/**/*.js', 'spas/**/*.html', '*.js', '*.html'],
+            files: ['**/*.js', '**/*.css', '**/*.html'],
             tasks: ['build'],
             options: {
-                reload: true,
                 livereload: true
             }
         }
@@ -41,6 +39,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    
 
     grunt.registerTask('default', ['jshint', 'connect', 'watch']);
     grunt.registerTask('build', ['jshint']);

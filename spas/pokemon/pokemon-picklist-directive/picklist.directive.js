@@ -2,6 +2,8 @@
     angular.module('treinadorPokemon')
         .directive('picklist', picklist);
 
+
+        
     function picklist() {
         return {
             restrict: '',

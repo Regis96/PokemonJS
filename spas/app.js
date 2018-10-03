@@ -4,7 +4,10 @@ angular.module('treinadorPokemon', ['ngRoute'])
             // .html5Mode(true)
             .hashPrefix('');
         $routeProvider
-            .when('/treinadores', {
+            .when('/home', {
+                templateUrl: './spas/home/home.controller.tpl.html'
+            })
+            .when('/treinador', {
                 templateUrl: './spas/treinador/treinador.controller.tpl.html'
             })
             .when('/pokemons', {
@@ -16,6 +19,9 @@ angular.module('treinadorPokemon', ['ngRoute'])
             .when('/login', {
                 templateUrl: './spas/login/login.controller.tpl.html'
             })
+            .when('/batalhar/:id', {
+                templateUrl: './spas/batalha/batalha.controller.tpl.html'
+            })
             .otherwise({
                 redirectTo: '/login'
             });
@@ -23,7 +29,7 @@ angular.module('treinadorPokemon', ['ngRoute'])
         $rootScope.$on('$routeChangeStart', function ($event, next, current) {
             var usuario = userService.getUsuario();
             if (next.$$route && ((next.$$route.originalPath === '/login' || next.$$route.originalPath === '/cadastrar') && (Object.keys(usuario).length > 0))) {
-                $location.path('/treinadores');
+                $location.path('/home');
                 return;
             }
 
@@ -31,4 +37,4 @@ angular.module('treinadorPokemon', ['ngRoute'])
                 $location.path('/login');
             }
         });
-    });  
+    });

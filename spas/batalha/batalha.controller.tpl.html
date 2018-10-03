@@ -1,0 +1,46 @@
+<div ng-controller="batalhaController as vm">
+    <div ng-if="vm.carregando">
+        Carregando...
+    </div>
+    <div ng-if="vm.selecionandoTimes">
+        <div class="row">
+            <picklist listaOriginal="vm.treinador.pokemons" listaItemSelecionado="vm.timeTreinador"></picklist>
+            <button class="btn btn-success" ng-click="setPronto()">Pronto</button>
+        </div>
+    </div>
+    <div ng-if="!vm.carregando && !vm.selecionandoTimes">
+        <div class="row">
+            <h3 class="col-md-3">{{vm.oponente.nome}}</h3>
+            <div class="col-md-9 text-right">
+                <span ng-repeat="pokemon in vm.oponente.pokemons">
+                    pokebola
+                </span>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <img ng-src="{{vm.oponente.pokemons[0].icone}}">
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="col-md-3">{{vm.treinador.nome}}</h3>
+            <div class="col-md-9 text-right">
+                <span ng-repeat="pokemon in vm.timeTreinador">
+                    pokebola
+                </span>
+            </div>
+            <div class="col-md-12 text-center">
+                <img ng-src="{{vm.timeTreinador[0].icone}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary">
+                    Atacar
+                </button>
+                <button class="btn btn-primary">
+                    Trocar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
